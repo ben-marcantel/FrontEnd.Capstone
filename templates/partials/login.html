@@ -1,0 +1,10 @@
+<div ng-controller="LogInCtrl">
+    
+    <ul>
+        <li ng-repeat="item in loginInput">
+        <a ng-show="{{item.bang}}loggedIn" href="#" ng-click="logInAuth(item.name)">{{item.name}}</a>
+    </li>
+    </ul>
+    <input type="range"> Test Field
+    <canvas id="canvas"></canvas>
+</div>

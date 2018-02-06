@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>Document</title>
+</head>
+<body ng-app="PseudoSceneApp">
+
+
+    <div ng-view></div>
+    <!-- <div ng-include="'partials/onload.html'"></div> -->
+
+
+        <!-- //angular scripts -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/firebase/firebase.js"></script>
+    <script src="./app/app.js"></script>
+      
+  
+
+        <!-- //factories   -->
+    <script src="./app/factories/AuthFactory.js"></script>
+    <script src="./app/factories/DataFactory.js"></script>
+    <script src="./app/values/Fb-creds.js"></script>
+    
+        
+        <!-- //controllers -->
+     <script src="./app/controllers/SceneCtrl.js"></script>
+     <script src="./app/controllers/LogInCtrl.js"></script>
+
+
+</body>
+</html>
