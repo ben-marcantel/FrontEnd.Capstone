@@ -7,16 +7,16 @@ angular.module("PseudoSceneApp")
  
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            //new form
 
-            let formData ={
-                xvalue1: $scope.xvalue1,
-                yvalue1: $scope.yvalue1,
+
+            //new form
+            let formData = {
+                x1: $scope.x1,
+                y1: $scope.y1,
             };
 
-            //send form data to fire base
-            
 
+            //send form data to fire base
             $scope.save = ()=>{ 
                 formData.uid = firebase.auth().currentUser.uid;
                 console.log("step2",formData);
@@ -25,7 +25,9 @@ angular.module("PseudoSceneApp")
                     $route.reload("/scene");
                 });
             };
-                
+           
+            
+
         }
     });
 });

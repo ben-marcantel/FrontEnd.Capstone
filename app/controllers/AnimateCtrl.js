@@ -1,11 +1,38 @@
-// "use strict";
+"use strict";
 
 
 
 
-// angular.module("PseudoSceneApp")
-//     .controller("AnimateCtrl", ['$scope', '$document', function($scope, $document){
-//         
+angular.module("PseudoSceneApp")
+    .controller("AnimateCtrl", function($scope, $document, $window){
+        
+        
+        // canvas.width = $window.innerwidth;
+        // canvas.height = $window.innerHeight;
+
+        $scope.data = ()=>{
+            const canvas = $document.find('canvas')[0];
+            const c = canvas.getContext('2d');
+            console.log('im here');
+            let x = $scope.x1.value;
+            let y = $scope.y1.value;
+            console.log(x,y);
+            c.beginPath();
+            c.lineTo(10,20);
+            c.strokeStyle = "red";
+            c.stroke();
+       };  
+     
+       
+    
+    
+           
+        
+       
+
+});
+
+
 // window.requestAnimFrame = (function(){
 //     return  window.requestAnimationFrame       ||
 //       window.webkitRequestAnimationFrame ||
@@ -16,38 +43,5 @@
 //         window.setTimeout(callback, 1000 / 60);
 //       };
 //   })();
-
-
-//         let makeMove=()=>{
-
-//             const canvas = $document.find('canvas')[0];
-//             canvas.width  = window.innerWidth;
+// canvas.width  = window.innerWidth;
 //             canvas.height = window.innerHeight;
-//             const c = canvas.getContext('2d');
-    
-//             let x = 0;
-//             let y = 0;
-    
-//             function draw(){
-//                 x += 1;
-//                 y += 1;
-    
-//                 c.fillStyle = '#000';
-//                 c.fillRect(0, 0, window.innerWidth, window.innerHeight);
-    
-//                 c.fillStyle = "#ffffff";
-//                 c.beginPath();
-//                 c.arc(x, y, 10, 0, 2 * Math.PI, false);
-//                 c.closePath();
-    
-//                 c.fill();
-    
-//                 requestAnimationFrame(draw);
-//             }
-    
-//             draw();
-
-//         }
-       
-
-// }]);
