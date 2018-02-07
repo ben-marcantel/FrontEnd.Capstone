@@ -1,5 +1,6 @@
 "use strict";
 
+
 angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFactory, $location, $window) {
     
 
@@ -13,23 +14,24 @@ angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFa
         }
     ];    
 
-        $scope.logInAuth = (item) => {
-            if (item === "Login") {
-                AuthFactory.login()
-                .then(user => {
-                    $window.location = "/#!";
-                });
-            } else {
-                AuthFactory.logout();
-            }
-        }; 
+    $scope.logInAuth = (item) => {
+        if (item === "Login") {
+            AuthFactory.login()
+            .then(user => {
+                $window.location = "/#!/scene";
+            });
+        } else {
+            AuthFactory.logout();
+        }
+    }; 
 
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                $scope.$apply($scope.loggedIn = true);
-            } else {
-                $scope.loggedIn = false;
-                $scope.$apply();
-            }
-        });
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            $scope.$apply($scope.loggedIn = true);
+        } else {
+            $scope.loggedIn = false;
+            $scope.$apply();
+        }
+    });
+    
 });

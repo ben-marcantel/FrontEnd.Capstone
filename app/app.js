@@ -1,7 +1,7 @@
 "use strict";
 
 
- angular.module("PseudoSceneApp", ["ngRoute"])
+angular.module("PseudoSceneApp", ["ngRoute"])
     .constant('_')
     .config($routeProvider=>{
     $routeProvider

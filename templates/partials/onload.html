@@ -1,0 +1,21 @@
+<div>
+    <div class= "canvasCont">
+        <canvas id="canvas" ></canvas>    
+        <!-- put ng-controller="AnimateCtrl" -->
+    </div>
+    
+
+    <form name="paramForm" ng-submit="save()" ng-controller="SceneCtrl">
+
+        <input type="range" id="range1" name="xRange1" ng-model="xvalue1" min="0"  max="100">
+        <input type="range" id="range1" name="yRange1" ng-model="yvalue1" min="10"  max="100">
+        <!-- <input type="text" id ="parameterName" ng-model="newParamName" ng-value="name"> -->
+        <!-- <input type="number" ng-model="value"><br> -->
+        <!-- <input type = "submit" ng-submit="" ng-controller="AnimateCtrl"> -->
+        <input type="submit" id="submit" value ="Save Parameter"> 
+        <div class = "valueTest" ng-bind-template = {{newParamName}}:{{xvalue1}},{{yvalue1}}></div>
+        <!-- //ng chnage on slider,etc have it call function on controller that calls to factory-->
+    
+    </form>
+
+</div>
