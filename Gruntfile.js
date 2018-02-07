@@ -7,7 +7,7 @@ module.exports = function(grunt) {
                 externalModules: ["ngRoute"]
             },
             app: {
-                src: "./app/*.js",
+                src: "./app/**/*.js",
                 dest: "./dist/project.js"
             }
         },

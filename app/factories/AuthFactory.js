@@ -2,33 +2,35 @@
 
 
 angular.module("PseudoSceneApp").factory("AuthFactory", (FBcreds, $q)=>{
+
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    let login = () => {
+    let login = ()=>{
     return firebase
         .auth()
         .signInWithPopup(provider)
         .then(function(result){
-            var token = result.credential.accessToken;
-            var user = result.user.G;
-            console.log("RESULT",result);
+            const token = result.credential.accessToken;
+            const user = result.user.G;
             return user;
         }).catch(function(error){
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.email;
+            const credential = error.credential;
+            // TODO: Need better error alert!! 
             console.log("error",error);
         });
     };
 
-    let logout = () => {
+    let logout = ()=>{
         firebase.auth().signOut()
         .then(function() {
+            //TODO: Need to decide what to do on logout
+        }).catch(function(error) {
             
-          }).catch(function(error) {
-            
-          });
-        };
-        return {login, logout};
+        });
+    };
+
+    return {login, logout};
 });
