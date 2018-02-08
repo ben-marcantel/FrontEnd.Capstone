@@ -13,7 +13,7 @@ angular.module("PseudoSceneApp", ["ngRoute"])
         templateUrl: "/templates/partials/onload.html",
         controller: "AnimateCtrl", 
     })
-    .when("/scene", {
+    .when("/scene/:paramName", {
         templateUrl: "/templates/partials/onload.html",
         controller: "SceneCtrl", 
     })

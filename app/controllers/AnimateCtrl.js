@@ -16,8 +16,8 @@ angular.module("PseudoSceneApp")
        // data from inputs
         $scope.data = ()=>{
     
-            x = $scope.x1.value;
-            y = $scope.y1.value;
+            x = $scope.formData.x1;
+            y = $scope.formData.y1;
 
 
         //begin animation logic, all animation logic should be moved to a factory??   

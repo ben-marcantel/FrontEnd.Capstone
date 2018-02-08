@@ -10,24 +10,41 @@ angular.module("PseudoSceneApp")
 
 
             //new form
-            let formData = {
-                x1: $scope.x1,
-                y1: $scope.y1,
+            $scope.formData = {
+                x1: null,
+                y1: null,
+                paramName: null
             };
 
 
             //send form data to fire base
             $scope.save = ()=>{ 
-                $route.reload("/scene");
-                formData.uid = firebase.auth().currentUser.uid;
-                console.log("step2",formData);
-                DataFactory.addParameter(formData)
+                $scope.formData.uid = firebase.auth().currentUser.uid;
+                DataFactory.addParameter($scope.formData)
                 .then((form)=>{
                     $route.reload("/scene");
                 });
             };
            
             
+            // retreive user form data
+            $scope.loadParam = ()=>{
+                DataFactory.getParameters()
+                .then((params) => {
+                    $scope.params = params; 
+                })
+                .catch((error) => {
+                    console.log("You messed up bruh", error);
+                });
+
+            };
+
+
+            //helper function to scope recalled form data set to draw logic
+            $scope.initSavedParam = (data)=>{
+                $scope.formData = data;
+            };
+
 
         }
     });
