@@ -1,6 +1,6 @@
 "use strict";
 
-
+//main control hub
 angular.module("PseudoSceneApp", ["ngRoute"])
     .constant('_')
     .config($routeProvider=>{
@@ -11,7 +11,11 @@ angular.module("PseudoSceneApp", ["ngRoute"])
     })
     .when("/scene", {
         templateUrl: "/templates/partials/onload.html",
-        controller: "SceneCtrl",
+        controller: "AnimateCtrl", 
+    })
+    .when("/scene", {
+        templateUrl: "/templates/partials/onload.html",
+        controller: "SceneCtrl", 
     })
     .otherwise("/");
     })

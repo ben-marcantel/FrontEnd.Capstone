@@ -4,25 +4,43 @@
 
 
 angular.module("PseudoSceneApp")
-    .controller("AnimateCtrl", function($scope, $document, $window){
-        
-        
-        // canvas.width = $window.innerwidth;
-        // canvas.height = $window.innerHeight;
+    .controller("AnimateCtrl", function($scope, $document, $window, $route){
 
+        //this sets canvas context
+        const c = $document[0].getElementById("canvas1").getContext('2d');
+        let x;
+        let y;
+       
+
+
+       // data from inputs
         $scope.data = ()=>{
-            const canvas = $document.find('canvas')[0];
-            const c = canvas.getContext('2d');
-            console.log('im here');
-            let x = $scope.x1.value;
-            let y = $scope.y1.value;
-            console.log(x,y);
-            c.beginPath();
-            c.lineTo(10,20);
-            c.strokeStyle = "red";
-            c.stroke();
-       };  
-     
+    
+            x = $scope.x1.value;
+            y = $scope.y1.value;
+
+
+        //begin animation logic, all animation logic should be moved to a factory??   
+
+            let draw = ()=>{
+                
+                c.beginPath();
+                c.lineTo(x,y);
+                c.lineTo(x*10,y*10);
+                c.strokeStyle = "red";
+                c.stroke();   
+            };
+
+            draw();
+        };
+
+       
+
+        
+      
+         
+       
+        
        
     
     
@@ -31,17 +49,3 @@ angular.module("PseudoSceneApp")
        
 
 });
-
-
-// window.requestAnimFrame = (function(){
-//     return  window.requestAnimationFrame       ||
-//       window.webkitRequestAnimationFrame ||
-//       window.mozRequestAnimationFrame    ||
-//       window.oRequestAnimationFrame      ||
-//       window.msRequestAnimationFrame     ||
-//       function(/* function */ callback, /* DOMElement */ element){
-//         window.setTimeout(callback, 1000 / 60);
-//       };
-//   })();
-// canvas.width  = window.innerWidth;
-//             canvas.height = window.innerHeight;

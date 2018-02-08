@@ -3,6 +3,9 @@
 
 angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
 
+
+
+    //send parameter to database
     function addParameter(formData){
         console.log("data to FB", formData);
         return $q((resolve, reject)=>{
@@ -17,6 +20,11 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
         });
     }
 
+
+
+
+
+    
     return { addParameter };
 
 });

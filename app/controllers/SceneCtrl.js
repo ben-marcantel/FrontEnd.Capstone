@@ -2,7 +2,7 @@
 
 
 angular.module("PseudoSceneApp")
-.controller("SceneCtrl", function($scope, $routeParams, $location, $route, $window, AuthFactory, DataFactory ){
+.controller("SceneCtrl", function($scope, $routeParams, $location, $route, $window, AuthFactory, DataFactory){
     
  
     firebase.auth().onAuthStateChanged(function (user) {
@@ -18,6 +18,7 @@ angular.module("PseudoSceneApp")
 
             //send form data to fire base
             $scope.save = ()=>{ 
+                $route.reload("/scene");
                 formData.uid = firebase.auth().currentUser.uid;
                 console.log("step2",formData);
                 DataFactory.addParameter(formData)
