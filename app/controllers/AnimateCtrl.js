@@ -1,53 +1,51 @@
-// "use strict";
+"use strict";
 
 
 
 
-// angular.module("PseudoSceneApp")
-//     .controller("AnimateCtrl", ['$scope', '$document', function($scope, $document){
-//         
-// window.requestAnimFrame = (function(){
-//     return  window.requestAnimationFrame       ||
-//       window.webkitRequestAnimationFrame ||
-//       window.mozRequestAnimationFrame    ||
-//       window.oRequestAnimationFrame      ||
-//       window.msRequestAnimationFrame     ||
-//       function(/* function */ callback, /* DOMElement */ element){
-//         window.setTimeout(callback, 1000 / 60);
-//       };
-//   })();
+angular.module("PseudoSceneApp")
+    .controller("AnimateCtrl", function($scope, $document, $window, $route){
 
-
-//         let makeMove=()=>{
-
-//             const canvas = $document.find('canvas')[0];
-//             canvas.width  = window.innerWidth;
-//             canvas.height = window.innerHeight;
-//             const c = canvas.getContext('2d');
-    
-//             let x = 0;
-//             let y = 0;
-    
-//             function draw(){
-//                 x += 1;
-//                 y += 1;
-    
-//                 c.fillStyle = '#000';
-//                 c.fillRect(0, 0, window.innerWidth, window.innerHeight);
-    
-//                 c.fillStyle = "#ffffff";
-//                 c.beginPath();
-//                 c.arc(x, y, 10, 0, 2 * Math.PI, false);
-//                 c.closePath();
-    
-//                 c.fill();
-    
-//                 requestAnimationFrame(draw);
-//             }
-    
-//             draw();
-
-//         }
+        //this sets canvas context
+        const c = $document[0].getElementById("canvas1").getContext('2d');
+        let x;
+        let y;
        
 
-// }]);
+
+       // data from inputs
+        $scope.data = ()=>{
+    
+            x = $scope.x1.value;
+            y = $scope.y1.value;
+
+
+        //begin animation logic, all animation logic should be moved to a factory??   
+
+            let draw = ()=>{
+                
+                c.beginPath();
+                c.lineTo(x,y);
+                c.lineTo(x*10,y*10);
+                c.strokeStyle = "red";
+                c.stroke();   
+            };
+
+            draw();
+        };
+
+       
+
+        
+      
+         
+       
+        
+       
+    
+    
+           
+        
+       
+
+});

@@ -1,20 +1,31 @@
 <div>
+
+    <!-- //canvas -->
     <div class= "canvasCont">
-        <canvas id="canvas" ></canvas>    
-        <!-- put ng-controller="AnimateCtrl" -->
+        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1024"></canvas>    
     </div>
     
 
-    <form name="paramForm" ng-submit="save()" ng-controller="SceneCtrl">
+    <!-- //                            begin data form -->
+    <form name="paramForm" ng-submit="save()","data()" ng-controller="SceneCtrl","AnimateCtrl">
 
-        <input type="range" id="range1" name="xRange1" ng-model="xvalue1" min="0"  max="100">
-        <input type="range" id="range1" name="yRange1" ng-model="yvalue1" min="10"  max="100">
-        <!-- <input type="text" id ="parameterName" ng-model="newParamName" ng-value="name"> -->
-        <!-- <input type="number" ng-model="value"><br> -->
-        <!-- <input type = "submit" ng-submit="" ng-controller="AnimateCtrl"> -->
+        <!--                            sliders-->
+        <!-- //value inputs -->
+        <input type="range" id="range1" name="xRange1" ng-model="x1.value" min="0"  max="100">
+        <input type="range" id="range1" name="yRange1" ng-model="y1.value" min="10"  max="100">
+       
+        
+        <!--                            buttons -->
+        <!-- //create image -->
+        <input type = "button" ng-click="data()" ng-controller="AnimateCtrl" value="Create Image">
+        <!-- //save image -->
         <input type="submit" id="submit" value ="Save Parameter"> 
-        <div class = "valueTest" ng-bind-template = {{newParamName}}:{{xvalue1}},{{yvalue1}}></div>
-        <!-- //ng chnage on slider,etc have it call function on controller that calls to factory-->
+
+
+
+        <!--                             field display -->
+        <div class = "valueTest" ng-bind-template = {{paramName.value}}:{{x1.value}},{{y1.value}}></div>
+
     
     </form>
 
