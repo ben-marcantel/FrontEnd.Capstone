@@ -40,12 +40,44 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
         });
     }
 
+    //update parameter in database
+
+
+    function updateParameters(FbId,formData){
+        console.log("update form data in factory", formData);
+        let updatedForm = JSON.stringify(formData);
+        return $q((resolve, reject)=>{
+            $http
+            .put(`https://frontendcapstone-fe0b1.firebaseio.com/Users/${FbId}.json`,updatedForm)
+            .then((data) => {
+                console.log(data);
+                resolve(data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+
+        });
+
+
+    }
 
     //delete parameter from database
    
-
+    function deleteParameter(FbId) {
+        return $q((resolve, reject) => {
+            $http
+                .delete(`https://frontendcapstone-fe0b1.firebaseio.com/Users/${FbId}.json`)
+                .then((data) => {
+                    resolve(data);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    }
 
     
-    return { addParameter, getParameters };
+    return { addParameter, getParameters, updateParameters, deleteParameter };
 
 });

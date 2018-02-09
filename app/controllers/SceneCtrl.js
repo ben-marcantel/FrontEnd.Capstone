@@ -19,15 +19,28 @@ angular.module("PseudoSceneApp")
 
             //send form data to fire base
             $scope.save = ()=>{ 
-                $scope.formData.uid = firebase.auth().currentUser.uid;
-                DataFactory.addParameter($scope.formData)
-                .then((form)=>{
-                    $route.reload("/scene");
-                });
+                if ($scope.formData.$$hashKey === undefined){
+                    $scope.formData.uid = firebase.auth().currentUser.uid;
+                    DataFactory.addParameter($scope.formData)
+                    .then((form)=>{
+                        $route.reload("/scene");
+                    });
+                }
+                else {
+                    // $scope.formData.$$hashKey = null;
+                    delete $scope.formData.$$hashKey;
+                    console.log("pre-patch data set",$scope.formData);
+                    DataFactory.updateParameters($scope.formData.paramsId,$scope.formData)
+                    .then((form)=>{
+                        console.log("is this janky?");
+                    });
+                }
+
             };
-           
             
-            // retreive user form data
+           
+
+            // retrieve user form data
             $scope.loadParam = ()=>{
                 DataFactory.getParameters()
                 .then((params) => {
@@ -41,8 +54,19 @@ angular.module("PseudoSceneApp")
 
 
             //helper function to scope recalled form data set to draw logic
-            $scope.initSavedParam = (data)=>{
-                $scope.formData = data;
+            $scope.initSavedParam = (recalledFormData)=>{
+                $scope.formData = recalledFormData;
+            };
+
+
+
+            //delete parameter
+            $scope.deleteParam = (paramId)=>{
+                DataFactory.deleteParameter(paramId)
+                .then(()=>{
+                    $scope.loadParam();
+                    $route.reload("/scene");
+                });
             };
 
 
