@@ -2,29 +2,43 @@
 
     <!-- //canvas -->
     <div class= "canvasCont">
-        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1024"></canvas>    
+        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "312" width ="540"></canvas>    
     </div>
     
 
     <!-- //                            begin data form -->
-    <form name="paramForm" ng-submit="save()","data()" ng-controller="SceneCtrl","AnimateCtrl">
+    <form name= "paramForm" ng-submit= "save()" ng-controller= "SceneCtrl">
 
         <!--                            sliders-->
         <!-- //value inputs -->
-        <input type="range" id="range1" name="xRange1" ng-model="x1.value" min="0"  max="100">
-        <input type="range" id="range1" name="yRange1" ng-model="y1.value" min="10"  max="100">
+        <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" min= "0"  max= "100">
+        <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "10"  max= "100">
+        <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
        
         
         <!--                            buttons -->
         <!-- //create image -->
-        <input type = "button" ng-click="data()" ng-controller="AnimateCtrl" value="Create Image">
-        <!-- //save image -->
-        <input type="submit" id="submit" value ="Save Parameter"> 
+        <input type = "button" ng-click= "data()" ng-controller= "AnimateCtrl" value= "Create Image">
+
+        <!-- //save parameter -->
+        <input type= "submit" id= "submit" value = "Save Parameter"> 
+
+        <!-- //recall parameter -->
+        <div class="savedParameterView">
+            <input type = "button"   value= "Recall Parameter Set" ng-click="loadParam()">
+            <ul class= "paramCollection">YO!
+                <li ng-repeat= "param in params">
+                    <h1 id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}</h1>
+                    <!-- //destroy parameter -->
+                    <input type= "button" value="Delete" ng-click="deleteParam(param.paramsId)">
+                </li>
+            </ul>
+        </div>
 
 
 
-        <!--                             field display -->
-        <div class = "valueTest" ng-bind-template = {{paramName.value}}:{{x1.value}},{{y1.value}}></div>
+        <!--                            dummy field display -->
+        <div class = "valueTest" ng-bind-template = {{formData.paramName}}:{{formData.x1}},{{formData.y1}}></div>
 
     
     </form>

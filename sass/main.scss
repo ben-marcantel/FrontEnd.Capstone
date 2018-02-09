@@ -8,6 +8,7 @@
 
 body {
     background-image: url("../images/galaxyA.png");
+    font-family: Futura;
 }
 
 
@@ -16,4 +17,13 @@ body {
 
 .valueTest{
     color: rgb(187, 183, 241);
+}
+
+
+// saved div parameter
+.paramCollection{
+    background-color: rgba(240, 248, 255, 0.171);
+    height: 10em;
+    width: 15em;
+    overflow: scroll;
 }
