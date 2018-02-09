@@ -32,7 +32,7 @@ angular.module("PseudoSceneApp")
                     console.log("pre-patch data set",$scope.formData);
                     DataFactory.updateParameters($scope.formData.paramsId,$scope.formData)
                     .then((form)=>{
-                        console.log("is this janky?");
+                        $route.reload("/scene");
                     });
                 }
 
