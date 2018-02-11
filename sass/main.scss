@@ -27,3 +27,13 @@ body {
     width: 15em;
     overflow: scroll;
 }
+.parameterHeader{
+    display: flex;
+    margin-left: 1em;
+}
+
+.paramName{
+    padding-left: 1em;
+    padding-top: 1em;
+    display: flex;
+}

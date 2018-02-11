@@ -9,12 +9,21 @@ angular.module("PseudoSceneApp")
         if (user) {
 
 
-            //new form
+            ////////////////FORM SCOPE DATA
             $scope.formData = {
                 x1: null,
                 y1: null,
                 paramName: null
             };
+
+
+
+
+
+
+///////////////////DATA FORM CRUD/////////////////////////////
+
+
 
 
             //send form data to fire base
@@ -23,7 +32,7 @@ angular.module("PseudoSceneApp")
                     $scope.formData.uid = firebase.auth().currentUser.uid;
                     DataFactory.addParameter($scope.formData)
                     .then((form)=>{
-                        $route.reload("/scene");
+                        $scope.loadParam();
                     });
                 }
                 else {
@@ -32,14 +41,12 @@ angular.module("PseudoSceneApp")
                     console.log("pre-patch data set",$scope.formData);
                     DataFactory.updateParameters($scope.formData.paramsId,$scope.formData)
                     .then((form)=>{
-                        $route.reload("/scene");
+                        $scope.loadParam();
                     });
                 }
 
             };
             
-           
-
             // retrieve user form data
             $scope.loadParam = ()=>{
                 DataFactory.getParameters()
@@ -52,22 +59,24 @@ angular.module("PseudoSceneApp")
 
             };
 
-
             //helper function to scope recalled form data set to draw logic
             $scope.initSavedParam = (recalledFormData)=>{
                 $scope.formData = recalledFormData;
             };
-
-
 
             //delete parameter
             $scope.deleteParam = (paramId)=>{
                 DataFactory.deleteParameter(paramId)
                 .then(()=>{
                     $scope.loadParam();
-                    $route.reload("/scene");
                 });
             };
+
+            //exit parameter
+            $scope.exitParamEdit = ()=>{
+                $scope.loadParam();
+            };
+
 
 
         }

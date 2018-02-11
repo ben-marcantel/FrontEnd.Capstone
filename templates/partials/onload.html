@@ -21,16 +21,21 @@
         <input type = "button" ng-click= "data()" ng-controller= "AnimateCtrl" value= "Create Image">
 
         <!-- //save parameter -->
-        <input type= "submit" id= "submit" value = "Save Parameter"> 
+        <!-- <input type= "submit" id= "submit" value = "Save Parameter">  -->
 
         <!-- //recall parameter -->
         <div class="savedParameterView">
-            <input type = "button"   value= "Recall Parameter Set" ng-click="loadParam()">
-            <ul class= "paramCollection">YO!
-                <li ng-repeat= "param in params">
-                    <h1 id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}</h1>
-                    <!-- //destroy parameter -->
-                    <input type= "button" value="Delete" ng-click="deleteParam(param.paramsId)">
+                <div class="savedParameterView">
+                        <ul class="parameterHeader">Parameter Sets
+                            <li ng-click="save()">:  Save  </li>
+                            <li ng-click="loadParam()">,  Load  </li>
+                            <li ng-click="exitParamEdit()">,  Exit  </li>
+                        </ul>
+            
+            <ul class= "paramCollection">
+                <li class="paramName"ng-repeat= "param in params">
+                    <div id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}</div>
+                    <div ng-click="deleteParam(param.paramsId)">Delete</div>
                 </li>
             </ul>
         </div>

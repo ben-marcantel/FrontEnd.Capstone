@@ -13,10 +13,6 @@ angular.module("PseudoSceneApp", ["ngRoute"])
         templateUrl: "/templates/partials/onload.html",
         controller: "AnimateCtrl", 
     })
-    .when("/scene/:paramName", {
-        templateUrl: "/templates/partials/onload.html",
-        controller: "SceneCtrl", 
-    })
     .otherwise("/");
     })
     .run(FBcreds => {
