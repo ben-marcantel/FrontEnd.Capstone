@@ -1,27 +1,18 @@
 <div>
 
-    <!-- //canvas -->
-    <div class= "canvasCont">
-        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "312" width ="540"></canvas>    
-    </div>
-    
+  
 
     <!-- //                            begin data form -->
-    <form name= "paramForm" ng-submit= "save()" ng-controller= "SceneCtrl">
+    <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
 
         <!--                            sliders-->
         <!-- //value inputs -->
         <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" min= "0"  max= "100">
         <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "10"  max= "100">
         <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
+        <input type = "submit" ng-click= "data(formData)" ng-controller= "AnimateCtrl" value= "submit form">
        
         
-        <!--                            buttons -->
-        <!-- //create image -->
-        <input type = "button" ng-click= "data()" ng-controller= "AnimateCtrl" value= "Create Image">
-
-        <!-- //save parameter -->
-        <!-- <input type= "submit" id= "submit" value = "Save Parameter">  -->
 
         <!-- //recall parameter -->
         <div class="savedParameterView">

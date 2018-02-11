@@ -4,7 +4,7 @@
 
 
 angular.module("PseudoSceneApp")
-    .controller("AnimateCtrl", function($scope, $document, $window, $route){
+    .controller("AnimateCtrl", function($scope, $document, $window, $route, DataShareFactory){
 
         $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
 
@@ -17,12 +17,26 @@ angular.module("PseudoSceneApp")
         let y;
        
 
+       $scope.clearImage = ()=>{
+        c.clearRect(0, 0, 512, 1040);
+    };
 
+    /////////DATA SHARE GETTER
+    $scope.formExe=()=>{
+        $scope.data = DataShareFactory.getData();
+    
+    };
+
+     
+     
+    
        // data from inputs
         $scope.data = ()=>{
-    
+            
             x = $scope.formData.x1;
             y = $scope.formData.y1;
+
+       
 
             
 

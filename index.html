@@ -9,7 +9,7 @@
 </head>
 <body ng-app="PseudoSceneApp">
 
-
+    <div ng-include="'templates/partials/canvas.html' "></div>
     <div ng-view></div>
     <div ng-include="'templates/partials/login.html' "></div>
 
@@ -25,7 +25,7 @@
         <!-- //factories   -->
     <script src="./app/factories/AuthFactory.js"></script>
     <script src="./app/factories/DataFactory.js"></script>
-    <!-- <script src="./app/factories/AnimationFactory.js"></script> -->
+    <script src="./app/factories/DataShareFactory.js"></script>
     <script src="./values/Fb-creds.js"></script>
     
         

@@ -2,22 +2,25 @@
 
 
 angular.module("PseudoSceneApp")
-.controller("SceneCtrl", function($scope, $routeParams, $location, $route, $window, AuthFactory, DataFactory){
+.controller("SceneCtrl", function($scope, $routeParams, $location, $route, $window, AuthFactory, DataFactory, DataShareFactory){
     
  
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 
-
+            
             ////////////////FORM SCOPE DATA
-            $scope.formData = {
-                x1: null,
-                y1: null,
-                paramName: null
-            };
+            // $scope.formData = {
+            //     x1: null,
+            //     y1: null,
+            //     paramName: null
+            // };
 
-
-
+/////////////////SETTER FOR DATA SHARE FACTORY
+            $scope.submitData = function(formData)  { 
+                        DataShareFactory.setData(formData);
+                          console.log(formData);
+                     };
 
 
 
