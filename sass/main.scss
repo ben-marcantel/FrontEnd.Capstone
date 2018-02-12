@@ -2,6 +2,7 @@
 
 #canvas1{
     background-color: rgb(0, 0, 0); 
+    align-content: center;
 }
 
 //background
@@ -11,29 +12,53 @@ body {
     font-family: Futura;
 }
 
+//login
 
+.login{
+    display: flex;
+    list-style: none;
+}
 
+// page layout
+.dataSetsCont{
+    display: flex;
+}
+
+.imageControls{
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.imageType{
+    display: flex;
+    list-style: none;
+}
+.imageType li {
+    margin-left: 1em;
+}
 ///onload partial
 
 .valueTest{
     color: rgb(187, 183, 241);
 }
 
+.formInputs{
+    overflow: scroll;
 
+}
 // saved div parameter
 .paramCollection{
     background-color: rgba(240, 248, 255, 0.171);
-    height: 10em;
-    width: 15em;
+    height: 5em;
+    width: 25em;
     overflow: scroll;
 }
 .parameterHeader{
     display: flex;
-    margin-left: 1em;
+    list-style: none;
 }
 
 .paramName{
-    padding-left: 1em;
-    padding-top: 1em;
     display: flex;
 }

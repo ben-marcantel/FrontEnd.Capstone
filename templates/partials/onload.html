@@ -1,16 +1,14 @@
 <div>
     <!-- //                            begin data form -->
     <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
-        <div type = "submit" ng-click= "data(formData)" ng-controller= "AnimateCtrl" value= "create image">Create Image</div> 
         <!--                            sliders-->
         <div class= "dataSetsCont">
         <!-- //value inputs -->
             <div class ="formInputs">
                 <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
-                <!-- <input type= "range" id= "range1" name= "colorRange1" ng-model= "formData.color1" min= "0"  max= "100"> -->
-                <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" min= "0"  max= "100"> 
-                     
-                <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "0"  max= "100">
+                <input type= "text" placeholder = "Enter Image Text" ng-model="formData.paramImageText" ng-change="submitData(formData)" >
+                <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" ng-change="submitData(formData)" min= "0"  max= "100">     
+                <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "0"  max= "100" ng-change="submitData(formData)"> 
             </div>
                                  <!-- //recall parameter -->
             <div>
@@ -29,10 +27,11 @@
                     </ul>
                 </div>
             </div>
+            <!--                            dummy field display -->
+            <div class = "valueTest" ng-bind-template = {{formData.paramImageText}}:{{formData.x1}},{{formData.y1}}></div>
         </div>
 
-        <!--                            dummy field display -->
-        <div class = "valueTest" ng-bind-template = {{formData.paramName}}:{{formData.x1}},{{formData.y1}}></div>
+        
 
     </form>
 

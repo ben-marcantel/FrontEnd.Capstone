@@ -12,8 +12,9 @@ angular.module("PseudoSceneApp")
         let y1;
         let x;
         let y;
-        let newFormData;
         let image;
+        let dataFromGetter;
+        let animationToPause;
 
 
 /////////DOWNLOAD IMAGE/////////
@@ -27,31 +28,60 @@ angular.module("PseudoSceneApp")
         c.beginPath();
         c.closePath();
         c.translate(0, 0);
-        // c.rotate((Math.PI / 180) * 1);
-        
-        // c.rotate()
         c.clearRect(0, 0, 10000, 10000);
     };
 
-
-
-    /////////DATA SHARE FACTORY GETTER/////////
+/////////DATA SHARE FACTORY GETTER/////////
     $scope.formExe=()=>{
-        DataShareFactory.getData();
-        console.log("right here!!!", $scope.data);
+       dataFromGetter = DataShareFactory.getData();
+       return dataFromGetter;
+    };
+
+///////////PAUSE ANIMATION///////////
+    $scope.stopAnimation =()=>{
+        console.log("yo");
+        cancelAnimationFrame(animationToPause);
     };
 
 
-/////////////////data from inputs/////////////
-        $scope.data = ()=>{
-            console.log("yooooo!", $scope.formData);
-            x = $scope.formData.x1;
-            y = $scope.formData.y1;
-            newFormData = $scope.formData;
-            AnimationFactory.draw(newFormData);
-            
-        };
+///////EQUATION CALLERS/////
+    $scope.static = ()=>{
+        $scope.formExe();
+        AnimationFactory.draw(dataFromGetter);
+    };
+
+    $scope.animate = ()=>{
+        $scope.formExe();
+        AnimationFactory.drawTenPrint(dataFromGetter);
+        animationToPause = AnimationFactory.drawTenPrint(dataFromGetter);
+    };
+    
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////data from inputs/////////////
+// let newFormData;
+//         $scope.data = ()=>{
+//             newFormData = $scope.formData;
+//             AnimationFactory.draw(newFormData);
+            
+//         };
+// });
 
       
 

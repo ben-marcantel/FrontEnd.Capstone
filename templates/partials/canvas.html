@@ -1,8 +1,14 @@
 <div class= "canvasCont">
-        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "312" width ="540"></canvas>    
+        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1080"></canvas>    
 </div>
 <div class="imageControls">
+<!-- <div ng-click="formExe()"  ng-controller= "AnimateCtrl">Create Image</div> -->
 <div ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear Image</div>
-<div ng-click="downloadImg()" ng-controller=" AnimateCtrl">Download Image</div>
+<div ng-click="stopAnimation()"  ng-controller= "AnimateCtrl">Pause Animation</div>
+<div ng-click="downloadImg()" ng-controller= "AnimateCtrl">Download Image</div>
 </div>
 
+<ul class ="imageType">Please select Image Type:
+        <li ng-click="static()" ng-controller= "AnimateCtrl">Static Image</li>
+        <li ng-click="animate()" ng-controller= "AnimateCtrl">Animated Image</li>
+</ul>
