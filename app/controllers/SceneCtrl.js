@@ -8,27 +8,16 @@ angular.module("PseudoSceneApp")
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 
-            
-            ////////////////FORM SCOPE DATA
-            // $scope.formData = {
-            //     x1: null,
-            //     y1: null,
-            //     paramName: null
-            // };
 
 /////////////////SETTER FOR DATA SHARE FACTORY
             $scope.submitData = function(formData)  { 
                         DataShareFactory.setData(formData);
                           console.log(formData);
-                     };
-
-
+                     };   
+                     
+                     
 
 ///////////////////DATA FORM CRUD/////////////////////////////
-
-
-
-
             //send form data to fire base
             $scope.save = ()=>{ 
                 if ($scope.formData.$$hashKey === undefined){
@@ -39,9 +28,7 @@ angular.module("PseudoSceneApp")
                     });
                 }
                 else {
-                    // $scope.formData.$$hashKey = null;
                     delete $scope.formData.$$hashKey;
-                    console.log("pre-patch data set",$scope.formData);
                     DataFactory.updateParameters($scope.formData.paramsId,$scope.formData)
                     .then((form)=>{
                         $scope.loadParam();
@@ -77,7 +64,8 @@ angular.module("PseudoSceneApp")
 
             //exit parameter
             $scope.exitParamEdit = ()=>{
-                $scope.loadParam();
+                $route.reload("/scene");
+                // $scope.loadParam();
             };
 
 

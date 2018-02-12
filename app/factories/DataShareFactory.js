@@ -15,6 +15,7 @@ angular.module("PseudoSceneApp").factory("DataShareFactory", function() {
     };
 
     let getData = function() {
+        console.log(formObject);
         return formObject;
     };
 

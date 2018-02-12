@@ -1,5 +1,8 @@
 <div class= "canvasCont">
         <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "312" width ="540"></canvas>    
-    </div>
-   
-    <input type = "button" ng-click="clearImage()"  ng-controller= "AnimateCtrl" value ="Clear Image">
+</div>
+<div class="imageControls">
+<div ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear Image</div>
+<div ng-click="downloadImg()" ng-controller=" AnimateCtrl">Download Image</div>
+</div>
+

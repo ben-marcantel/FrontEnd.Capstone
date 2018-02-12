@@ -1,42 +1,39 @@
 <div>
-
-  
-
     <!-- //                            begin data form -->
     <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
-
+        <div type = "submit" ng-click= "data(formData)" ng-controller= "AnimateCtrl" value= "create image">Create Image</div> 
         <!--                            sliders-->
+        <div class= "dataSetsCont">
         <!-- //value inputs -->
-        <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" min= "0"  max= "100">
-        <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "10"  max= "100">
-        <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
-        <input type = "submit" ng-click= "data(formData)" ng-controller= "AnimateCtrl" value= "submit form">
-       
-        
-
-        <!-- //recall parameter -->
-        <div class="savedParameterView">
+            <div class ="formInputs">
+                <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
+                <!-- <input type= "range" id= "range1" name= "colorRange1" ng-model= "formData.color1" min= "0"  max= "100"> -->
+                <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" min= "0"  max= "100"> 
+                     
+                <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "0"  max= "100">
+            </div>
+                                 <!-- //recall parameter -->
+            <div>
                 <div class="savedParameterView">
                         <ul class="parameterHeader">Parameter Sets
                             <li ng-click="save()">:  Save  </li>
                             <li ng-click="loadParam()">,  Load  </li>
                             <li ng-click="exitParamEdit()">,  Exit  </li>
                         </ul>
-            
-            <ul class= "paramCollection">
-                <li class="paramName"ng-repeat= "param in params">
-                    <div id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}</div>
-                    <div ng-click="deleteParam(param.paramsId)">Delete</div>
-                </li>
-            </ul>
+                </div>
+                    <ul class= "paramCollection">
+                        <li class="paramName"ng-repeat= "param in params">
+                            <div id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}: Edit </div>
+                            <div ng-click="deleteParam(param.paramsId)">, Delete</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-
 
         <!--                            dummy field display -->
         <div class = "valueTest" ng-bind-template = {{formData.paramName}}:{{formData.x1}},{{formData.y1}}></div>
 
-    
     </form>
 
 </div>
