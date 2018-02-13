@@ -5,10 +5,22 @@
         <div class= "dataSetsCont">
         <!-- //value inputs -->
             <div class ="formInputs">
-                <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
-                <input type= "text" placeholder = "Enter Image Text" ng-model="formData.paramImageText" ng-change="submitData(formData)" >
-                <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" ng-change="submitData(formData)" min= "0"  max= "100">     
-                <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "0"  max= "100" ng-change="submitData(formData)"> 
+                <input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name">
+                <input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text"ng-change="submitData(formData)">
+                <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "0"  max= "1080">   
+                <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "0"  max= "512">   
+                <input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "0"  max= "1080">     
+                <input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "0"  max= "512">  
+                <input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "0"  max= "1080">     
+                <input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "0"  max= "512">  
+                <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "0"  max= "1080">  
+                <input type= "range"  ng-model= "formData.rgbR" ng-change= "submitData(formData)" min= "0"  max= "255"> 
+                <input type= "range"  ng-model= "formData.hsl" ng-change= "submitData(formData)" min= "0"  max= "255"> 
+                <input type= "range"  ng-model= "formData.mPath" ng-change= "submitData(formData)" min= "0"  max= "2"> 
+                <input type= "range"  ng-model= "formData.consBX" ng-change= "submitData(formData)" min= "0"  max= "255"> 
+                <input type= "range"  ng-model= "formData.consBY" ng-change= "submitData(formData)" min= "0"  max= "100"> 
+                <input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "0"  max= "15"> 
+                <input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "0"  max= "15"> 
             </div>
                                  <!-- //recall parameter -->
             <div>
@@ -28,11 +40,8 @@
                 </div>
             </div>
             <!--                            dummy field display -->
-            <div class = "valueTest" ng-bind-template = {{formData.paramImageText}}:{{formData.x1}},{{formData.y1}}></div>
-        </div>
-
-        
-
+            <div class = "valueTest" ng-bind-template = {{formData.paramImageText}}:{{formData.paramImageText}}</div>
+            </div>
     </form>
 
 </div>

@@ -1,29 +1,37 @@
 "use strict";
 
 
-angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $document) {
-
-    $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
+angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $document, $interval) {
     let window = $window;
+    $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
+    let cancelAnimationFrame = $window.cancelAnimationFrame || $window.mozCancelAnimationFrame;
     const c = $document[0].getElementById("canvas1").getContext('2d');
 
 
 
 /////////////////MASTER VARIABLE LIST//////////////////////
+        let x = null;
+        let y = null;
+        let x1 = null;
+        let y1 = null;
+        let x2 = null;
+        let y3 = null;
+        let v = null;
+        let r = null;
+        let g = null;
+        let b = null;
+        let hsl = null;
+        let fontsize = null;
+        let end = null;
+        let rgbRange = null;
+        let movementPath =()=>{};
+        let consBounX = 1080;
+        let consBounY = 512;
+        let numObjects = 1;
+        let radius;
 
-        let x1;
-        let y1;
-        let x;
-        let y;
-        let r;
-        let g;
-        let b;
-        let fontsize;
-
-
-
-///////////TEST GROUP////////////////////
-     //Static group
+     
+//////////////////////////Static group///////////////////
    
         let draw=(data)=> {
 
@@ -33,10 +41,10 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 c.rotate((Math.PI / 180) * data.y1/10);
                 // c.fillStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
                 c.translate(50 + j * 50, 50 + i * 50);
-                // c.fillRect(0, 0,25 , 25);
+                c.fillRect(0, 0, 25 , 25);
                 c.strokeStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
                 c.font = "25px Futura";
-                c.strokeText(data.paramImageText,10,10);
+                // c.strokeText(data.paramImageText,10,10);
                 c.restore();
                 // c.rotate((Math.PI / 180) * (data.x1/100));
                 // window.requestAnimationFrame(draw);
@@ -65,7 +73,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 //////////////////// PARAMETRIC GROUP//////////////
 
-        function drawParametric(data){
+        let drawParametric = (data)=>{
             let i;
             let t= x;
             let lines  = y;
@@ -82,14 +90,14 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 return Math.cos(t/20)* 200 + 200 + Math.cos(t /12) * 20;  
             };
         
-            // $scoped variables
+            /////////$scoped variables
             x += 0.25;
             y += 0.25;
             r = x;
             g = y;
             b = 0;
 
-            //    draw logic
+            /////////draw logic
             i=x;
             t=t+0.5;
             c.translate(312/2, 540/2);
@@ -106,153 +114,311 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             }
 
             window.requestAnimationFrame(drawParametric);
-        }
+        };
        
 
-//////////////////////////////////L SYSTEM//////////////
+//////////////////////////////////L SYSTEM//////////////////
 
-        let currentString = "X";
-        let nextString = "";
-        
-        let generate = ()=>{
-            for (let i = 0; i<currentString.length; i++){
-                let chAt = currentString.charAt(i);
-                if (chAt == "X"){
-                    nextString += "F[-X][X]F[-X]+FX";
-                } else if (chAt == "F"){
-                    nextString += "FF";
-                }
-            } 
-            currentString += nextString;
-        };
-        
-        
-        let interpret = ()=>{
-            for (let i =0; i<currentString.length; i++){
-                let decoder = currentString.charAt(i);
-                
-                let x = 0;
-                let y = 100;
-                let newX = x;
-                let newY = y;
-                let currentX = "";
-                let currentY = "";
-                
-                if (decoder == "F"){ 
-                    // F means "draw forward
-                    c.restore(); 
-                    c.lineTo(newX,newY);
-                    c.save();
-        
-                    // c.closePath();
-                    
-                } else if (decoder == "X"){
-                    // X does not correspond to any drawing action and is used to control the evolution of the curve. 
-                    
-                    c.rotate((i * Math.PI)/ 180);
-                    c.closePath();
-        
-                } else if (decoder == "+"){
-                    // − means "turn left 25°"
-                    newX = x;
-                    newY = y + (y/2);
-                    c.lineTo(newX,newY);
-                    c.closePath();
-                    c.rotate(-(45 * Math.PI / 180));
-                    
-                } else if (decoder == "-"){
-                    // + means "turn right 25°"
-                   
-                    newX = x;
-                    newY = y + (y/2);
-                    c.lineTo(newX,newY);
-                    c.closePath();
-                    c.rotate(45 * Math.PI / 180);
-                    
-                    
-                } else if (decoder == "["){
-                    // The square bracket "[" corresponds to saving the current values for position and angle,
-                    // c.save();
-                
-                } else if (decoder == "]");
-                // which are restored when the corresponding "]" is executed
-                    c.restore(); 
-                    
-            }   
-        };
-        
-        
-        let initLsystem = ()=>{
-            console.log(currentString);
-            c.beginPath();
-            // c.lineTo(canvas.width/2,canvas.height/2);
-            c.translate(c.width/2,c.height/2);   
-            interpret();
-            c.strokeStyle = "rgb(255,0,200)";
-            c.stroke();
-        };
-        
-        
-        let drawLsystem = ()=>{
-            for (let i=0; i<1;i++){
-                generate(); 
-                // initLsystem();
-            }
-        };
+        let drawLsystem = (data)=>{
 
-        //////////////////////ANIMATION GROUP/////////////////////
-
+            let currentString = "X";
+            let nextString = "";
     
-    function TenPrint(x,y,dx,dy){
-        this.x = x;
-        this.y = y;
+            /////GENERATE STRING///////
+            let generate = ()=>{
+                for (let i = 0; i<currentString.length; i++){
+                    let chAt = currentString.charAt(i);
+                    if (chAt == "X"){
+                        nextString += "F[-X][X]F[-X]+FX";
+                    } else if (chAt == "F"){
+                        nextString += "FF";
+                    }
+                } 
+                currentString += nextString;
+            };
+            
+            ////////INTERPRET STRING RULES//////////
+            let interpret = ()=>{
+                for (let i =0; i<currentString.length; i++){
+                    let decoder = currentString.charAt(i);
+                    
+                 
+                    
+                    if (decoder == "F"){ 
+                        // F means "draw forward
+                        
+               
+                    } else if (decoder == "X"){
+                        // X does not correspond to any drawing action and is used to control the evolution of the curve. 
+                        
+                        c.rotate((5 * Math.PI)/ 180);
+                        c.closePath();
+            
+                    } else if (decoder == "+"){
+                        // − means "turn left 25°"
+                        
+                        c.closePath();
+                        c.rotate(-(45 * Math.PI / 180));
+                        
+                    } else if (decoder == "-"){
+                        // + means "turn right 25°"
+                       
+                        c.closePath();
+                        c.rotate(45 * Math.PI / 180);
+                        
+                        
+                    } else if (decoder == "["){
+                        // The square bracket "[" corresponds to saving the current values for position and angle,
+                        
+                    
+                    } else if (decoder == "]");
+                    // which are restored when the corresponding "]" is executed
+                        
+                        
+                }   
+            };
+            
+            
+            let initLsystem = ()=>{
+                
+                c.beginPath();
+                c.translate(1080/2,512/2);   
+                interpret();
+                c.strokeStyle = "rgb(255,0,200)";
+                c.stroke();
+            };
+            
+            
+            let magic = (data)=>{
+                for (let i=0; i<1;i++){
+                    generate(); 
+                    initLsystem();
+                }
+            };
+
+            magic();
+        };
+       
+
+//////////////////////ANIMATION GROUP/////////////////////
+
+
+    let drawMovingObject = (data)=>{
+
+    function AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db){
+        this.x =data.x;
+        this.y =data.y;
         this.dx = dx;
         this.dy = dy;
-    
+        this.radius = Math.floor((Math.random() * 100) +6);
+        this.dRadius =1;
+        this.r = Math.floor((Math.random() * 255) +1);
+        this.dr= 1/4;
+        this.g = Math.floor((Math.random() * 255) +1);
+        this.dg= 1/4;
+        this.b = Math.floor((Math.random()* 255)+1);
+        this.db = 1/4;
 
-        this.draw = function(){
+        this.draw = function (){
             c.beginPath();
-            c.lineTo(this.x, this.y);
-            c.lineTo(this.x*x, this.y*y);
-            c.strokeStyle = "red";
+            c.arc(this.x, this.y, this.radius, 0, Math.PI *2, false);
+            // c.lineTo(this.x,this.y);  /*Line maker  */
+            c.lineTo(this.x*x,this.y*y);
+            c.strokeStyle='rgb(' + this.r +',' + this.g + ',' + this.b + ')';
             c.stroke();
+            c.fillStyle = 'rgb(' + this.r +',' + this.g + ',' + this.b + ')';
+            c.fill();
         };
 
         this.update = function(){
-            if (this.x > 540 || this.x < 0) {
-            this.dx = -this.dx;
-        }
-            if (this.y > 312 || this.y < 0) {
-            this.dy = -this.dy;
-        }
+            if (this.x + this.radius > 1080 || this.x - this.radius < 0) {
+                this.dx = -this.dx;
+            }   
+            if (this.y + this.radius > 512 || this.y - this.radius < 0) {
+                this.dy = -this.dy;
+            }
+            if(this.r > 255 || this.r<1){
+                this.dr= -this.dr;
+            }
+            if(this.g > 255 || this.g<1){
+                this.dg= -this.dg;
+            }
+            if(this.b > 255 || this.b<1){
+                this.db= -this.db;
+            }
+            if(this.radius>100|| this.radius<1){
+                this.dRadius = -this.dRadius; 
+            }
             this.x += this.dx;
             this.y += this.dy;
+            this.r += this.dr;
+            this.g += this.dg;
+            this.b += this.db;
+            this.radius += this.dRadius;
             this.draw();
-
-
         };
+    }  
+
+    let objArray =[];
+
+        for (let i=0;i<1;i++){
+        let radius = Math.floor((Math.random() * 100) +6);
+        let dRadius =2;
+        let x = Math.random() * (1080 - radius* 2) + radius;
+        let y = Math.random()* (512 - radius *2) +  radius;
+        let dx = 1;
+        let dy = 1;
+        let r = Math.floor((Math.random() * 255) +1);
+        let dr= 1/4;
+        let g = Math.floor((Math.random() * 255) +1);
+        let dg= 1/4;
+        let b = Math.floor((Math.random()*255)+1);
+        let db = 1/4;
+    objArray.push(new AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db));
+}
+
+
+    function animate(){
+            window.requestAnimationFrame(animate);
+            c.clearRect(0, 0, 1080, 512);  
+            for(let i=0;i<objArray.length; i++){
+            objArray[i].update();
+            } 
     }
 
-    let printArray = [];
+   animate();
 
-    for(let i=0; i<2;i++){
+};
 
-        let x= Math.floor(Math.random()*10);
-        let y= Math.floor(Math.random()*10);
-        let dx = Math.floor(Math.random()*4);
-        let dy = Math.floor(Math.random()*4);
-        printArray.push(new TenPrint(x,y,dx,dy));
-    }
 
-    function drawTenPrint(){
-        window.requestAnimationFrame(drawTenPrint);
-        // c.clearRect(0,0, innerWidth, innerWidth);
-        for(let i=0;i<printArray.length; i++){
-            printArray[i].update();
+
+
+
+
+/////////////////////////////////////////
+
+    // let drawMovingObject = (data)=>{
+        
+    //     function TenPrint(x,y,dx,dy){
+    //         this.x = data.x1;
+    //         this.y = data.y1;
+    //         this.dx = dx;
+    //         this.dy = dy;
+            
+    //         this.draw = function(){
+    //         c.beginPath();
+    //         c.lineTo(this.x, this.y);
+    //         c.lineTo(data.x1, data.y1);
+    //         c.font = "25px Futura";
+    //         // c.strokeText(data.paramImageText,this.x,this.y);
+    //         c.strokeStyle = "red";
+    //         c.stroke();
+    //         };
+
+    //         this.update = function(){
+    //             if (this.x > 1080 || this.x < 0) {
+    //             this.dx = -this.dx;
+    //         }
+    //             if (this.y > 512|| this.y < 0) {
+    //             this.dy = -this.dy;
+    //         }
+    //             this.x += this.dx;
+    //             this.y += this.dy;
+
+    //             this.draw();
+    //         };
+    //     }
+
+    //     let printArray = [];
+
+    //     for(let i=0; i<2;i++){
+    //         let f1 = data.x1;
+    //         let f2 = data.y1;
+
+    //         let x = Math.floor(Math.random()*1);
+    //         let y = Math.floor(Math.random()*1);
+    //         let dx = Math.floor(Math.random()*(f1/10));
+    //         let dy = Math.floor(Math.random()*(10));
+    //         printArray.push(new TenPrint(x,y,dx,dy));
+    //     }   
+
+    //     function drawTenPrint(){
+    //         window.requestAnimationFrame(drawTenPrint);
+
+    //         c.clearRect(0,0, 1040,1040 );
+    //         for(let i=0;i<printArray.length; i++){
+    //             printArray[i].update();
+    //         }
+    //     }
+
+    //     drawTenPrint();
+    // };
+
+    let squiggle = (data)=>{
+  
+        let w = 1080;
+        let h = 512;
+        let p = [];
+        let clr;
+        let n = data.x1;
+
+        clr = [ 'red', 'green', 'blue', 'yellow', 'purple' ];
+
+        for (let i=0; i<n; i++){
+        // generate particle with random initial velocity, radius, and color
+            p.push({
+                x: w/2,
+                y: h/2,
+                vx: Math.random()*12-6,
+                vy: Math.random()*12-6,
+                r: Math.random()*4+3,
+                clr: Math.floor(Math.random()*clr.length)
+            });
         }
-    }
 
-// animate();
+        function frame(data) {
+         // cover the canvas with 50% opacity (creates fading trails)
+            c.fillStyle = 'rgba(0,0,0,0.5)';
+            c.fillRect(0, 0, w, h);
+
+            for (var i = 0; i < n; i++) {
+            // reduce velocity to 99%
+                p[i].vx *= 0.99;
+                p[i].vy *= 0.99;
+
+            // adjust position by the current velocity
+                p[i].x += p[i].vx;
+                p[i].y += p[i].vy;
+
+
+                if (p[i].x < p[i].r || p[i].x > w-p[i].r) {
+                    p[i].vx = -p[i].vx;
+                    p[i].x += p[i].vx;
+            }
+           
+                if (p[i].y < p[i].r || p[i].y > h-p[i].r) {
+                    p[i].vy = -p[i].vy;
+                    p[i].y += p[i].vy;
+            }
+
+            // draw the circle at the new postion
+                c.fillStyle = clr[p[i].clr]; // set color
+                c.beginPath();
+                c.arc(p[i].x, p[i].y, p[i].r, 0, Math.PI*2, false);
+                c.fill();
+                c.strokeStyle = "red";
+                c.stroke();
+            }
+ 
+
+        }
+
+       
+        window.requestAnimationFrame(frame);
+    };
+
+
+
 
 ////////////////////////AFTER P01//////////////////
 //     let time;
@@ -343,10 +509,18 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 // update();
 
         
-        
+      
+//////////////PAUSE ANIMATION//////////////////
+    let pauseAnimation= (currentAnime)=>{
+        console.log("maybe?");
+        window.cancelAnimationFrame(window.requestAnimationFrame(currentAnime)); 
+        return;
+    };
+
+////////////////////////////////////////  
 
 
 
-        return {draw, drawParametric, drawLsystem, drawTenPrint};
+        return {draw, drawParametric, drawLsystem, drawMovingObject, pauseAnimation, squiggle};
     
 });
