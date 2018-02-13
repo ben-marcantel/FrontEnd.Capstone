@@ -1,55 +1,84 @@
 "use strict";
 
 
-
-
 angular.module("PseudoSceneApp")
-    .controller("AnimateCtrl", function($scope, $document, $window, $route){
-
-        $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
-
+    .controller("AnimateCtrl", function($scope, $document, $window, $route, $animate, DataShareFactory, AnimationFactory){
         let window = $window;
-        //this sets canvas context
+        $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
+        const  cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+        let canvas = $document[0].getElementById("canvas1");
         const c = $document[0].getElementById("canvas1").getContext('2d');
-        let x1;
-        let y1;
-        let x;
-        let y;
-       
+        let image;
+        let dataFromGetter;
+        let animationToPause;
 
 
-       // data from inputs
-        $scope.data = ()=>{
-    
-            x = $scope.formData.x1;
-            y = $scope.formData.y1;
-
-            
-
-        //begin animation logic, all animation logic should be moved to a factory??   
-        function draw(){
-            x += 1;
-            y += 1;
-
-            c.fillStyle = '#000';
-            c.fillRect(0, 0, x1, y1);
-
-            c.fillStyle = "#ffffff";
-            c.beginPath();
-            c.arc(x, y, 10, 0, 2 * Math.PI, false);
-            c.closePath();
-
-            c.fill();
-
-            window.requestAnimationFrame(draw);
-        }
-
-        draw();
+/////////DOWNLOAD IMAGE/////////
+    $scope.downloadImg = ()=>{
+        image = canvas.toDataURL('image/jpeg', 1.0);
+        console.log(image);
     };
-      
+
+////////CLEAR IMAGE///////
+    $scope.clearImage = ()=>{
+        c.beginPath();
+        c.translate(0, 0);
+        c.closePath();
+        c.clearRect(0, 0, 10000, 10000);
+    };
+
+///////////PAUSE ANIMATION///////////
+    $scope.stopAnimation = ()=>{
+        // $animate.enabled(c, false);
+        AnimationFactory.pauseAnimation();
+        return;
+    };
+
+/////////DATA SHARE FACTORY GETTER/////////
+    $scope.formExe = ()=>{
+       dataFromGetter = DataShareFactory.getData();
+       return dataFromGetter;
+    };
+
+//////////////////////////EQUATION CALLERS////////////////////////////
+    $scope.static = ()=>{
+        $scope.formExe();
+        // AnimationFactory.squiggle(dataFromGetter);
+        AnimationFactory.draw(dataFromGetter);
+    };
+
+    $scope.animate = ()=>{
+        $scope.formExe();
+        AnimationFactory.drawMovingObject(dataFromGetter);
+        // animationToPause = AnimationFactory.drawTenPrint();
+    };
+    
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////data from inputs/////////////
+// let newFormData;
+//         $scope.data = ()=>{
+//             newFormData = $scope.formData;
+//             AnimationFactory.draw(newFormData);
+            
+//         };
+// });
 
       
 

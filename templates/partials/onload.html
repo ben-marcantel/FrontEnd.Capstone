@@ -1,46 +1,48 @@
 <div>
-
-    <!-- //canvas -->
-    <div class= "canvasCont">
-        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "312" width ="540"></canvas>    
-    </div>
-    
-
     <!-- //                            begin data form -->
-    <form name= "paramForm" ng-submit= "save()" ng-controller= "SceneCtrl">
-
+    <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
         <!--                            sliders-->
+        <div class= "dataSetsCont">
         <!-- //value inputs -->
-        <input type= "range" id= "range1" name= "xRange1" ng-model= "formData.x1" min= "0"  max= "100">
-        <input type= "range" id= "range1" name= "yRange1" ng-model= "formData.y1" min= "10"  max= "100">
-        <input type= "text" placeholder = "Enter Parameter Name" ng-model="formData.paramName">
-       
-        
-        <!--                            buttons -->
-        <!-- //create image -->
-        <input type = "button" ng-click= "data()" ng-controller= "AnimateCtrl" value= "Create Image">
-
-        <!-- //save parameter -->
-        <input type= "submit" id= "submit" value = "Save Parameter"> 
-
-        <!-- //recall parameter -->
-        <div class="savedParameterView">
-            <input type = "button"   value= "Recall Parameter Set" ng-click="loadParam()">
-            <ul class= "paramCollection">YO!
-                <li ng-repeat= "param in params">
-                    <h1 id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}</h1>
-                    <!-- //destroy parameter -->
-                    <input type= "button" value="Delete" ng-click="deleteParam(param.paramsId)">
-                </li>
+            <ul class ="formInputs">
+                <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name"></li>
+                <li></li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)" ></li>
+               <li>left or right 
+               <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "0"  max= "1080"> </li>  
+                <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "0"  max= "512"></li>   
+                <li>left 1 or right 1<input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "0"  max= "1080"></li>    
+                <li>up 1 or down 1<input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "0"  max= "512"></li>  
+               <li>up 2 or down 2 <input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "0"  max= "1080"></li>   
+                <li>up2 or down 2<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "0"  max= "512"></li> 
+                <li>speed <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "0"  max= "1080"></li> 
+                <li>rgb range<input type= "range"  ng-model= "formData.rgbR" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                <li>hsl<input type= "range"  ng-model= "formData.hsl" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                <li>path type<input type= "range"  ng-model= "formData.mPath" ng-change= "submitData(formData)" min= "0"  max= "2"></li> 
+                <li>boundry left or right<input type= "range"  ng-model= "formData.consBX" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                <li>boundry up or down<input type= "range"  ng-model= "formData.consBY" ng-change= "submitData(formData)" min= "0"  max= "100"></li> 
+                <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "0"  max= "15"></li>
+                <li>radius<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "0"  max= "15"></li> 
             </ul>
-        </div>
-
-
-
-        <!--                            dummy field display -->
-        <div class = "valueTest" ng-bind-template = {{formData.paramName}}:{{formData.x1}},{{formData.y1}}></div>
-
-    
+                                 <!-- //recall parameter -->
+            <div>
+                <div class="savedParameterView">
+                        <ul class="parameterHeader">Parameter Sets
+                            <li ng-click="save()">:  Save  </li>
+                            <li ng-click="loadParam()">,  Load  </li>
+                            <li ng-click="exitParamEdit()">,  Exit  </li>
+                        </ul>
+                </div>
+                    <ul class= "paramCollection">
+                        <li class="paramName"ng-repeat= "param in params">
+                            <div id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}: Edit </div>
+                            <div ng-click="deleteParam(param.paramsId)">, Delete</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--                            dummy field display -->
+            <div class = "valueTest" ng-bind-template = {{formData.paramImageText}}:{{formData.paramImageText}}></div>
+            </div>
     </form>
 
 </div>
