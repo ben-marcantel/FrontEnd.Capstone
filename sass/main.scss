@@ -44,7 +44,11 @@ body {
 }
 
 .formInputs{
+    list-style: none;
+    display: list-item;
     overflow: scroll;
+    height: 5em;
+    width: 20em;
 
 }
 // saved div parameter

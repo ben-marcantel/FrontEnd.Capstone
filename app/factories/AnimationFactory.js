@@ -203,92 +203,92 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 //////////////////////ANIMATION GROUP/////////////////////
 
 
-    let drawMovingObject = (data)=>{
+//     let drawMovingObject = (data)=>{
 
-    function AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db){
-        this.x =data.x;
-        this.y =data.y;
-        this.dx = dx;
-        this.dy = dy;
-        this.radius = Math.floor((Math.random() * 100) +6);
-        this.dRadius =1;
-        this.r = Math.floor((Math.random() * 255) +1);
-        this.dr= 1/4;
-        this.g = Math.floor((Math.random() * 255) +1);
-        this.dg= 1/4;
-        this.b = Math.floor((Math.random()* 255)+1);
-        this.db = 1/4;
+//     function AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db){
+//         this.x =data.x;
+//         this.y =data.y;
+//         this.dx = dx;
+//         this.dy = dy;
+//         this.radius = Math.floor((Math.random() * 100) +6);
+//         this.dRadius =1;
+//         this.r = Math.floor((Math.random() * 255) +1);
+//         this.dr= 1/4;
+//         this.g = Math.floor((Math.random() * 255) +1);
+//         this.dg= 1/4;
+//         this.b = Math.floor((Math.random()* 255)+1);
+//         this.db = 1/4;
 
-        this.draw = function (){
-            c.beginPath();
-            c.arc(this.x, this.y, this.radius, 0, Math.PI *2, false);
-            // c.lineTo(this.x,this.y);  /*Line maker  */
-            c.lineTo(this.x*x,this.y*y);
-            c.strokeStyle='rgb(' + this.r +',' + this.g + ',' + this.b + ')';
-            c.stroke();
-            c.fillStyle = 'rgb(' + this.r +',' + this.g + ',' + this.b + ')';
-            c.fill();
-        };
+//         this.draw = function (){
+//             c.beginPath();
+//             c.arc(this.x, this.y, this.radius, 0, Math.PI *2, false);
+//             c.lineTo(this.x,this.y);  /*Line maker  */
+//             c.lineTo(this.x*x,this.y*y);
+//             c.strokeStyle='rgb(' + this.r +',' + this.g + ',' + this.b + ')';
+//             c.stroke();
+//             c.fillStyle = 'rgb(' + this.r +',' + this.g + ',' + this.b + ')';
+//             c.fill();
+//         };
 
-        this.update = function(){
-            if (this.x + this.radius > 1080 || this.x - this.radius < 0) {
-                this.dx = -this.dx;
-            }   
-            if (this.y + this.radius > 512 || this.y - this.radius < 0) {
-                this.dy = -this.dy;
-            }
-            if(this.r > 255 || this.r<1){
-                this.dr= -this.dr;
-            }
-            if(this.g > 255 || this.g<1){
-                this.dg= -this.dg;
-            }
-            if(this.b > 255 || this.b<1){
-                this.db= -this.db;
-            }
-            if(this.radius>100|| this.radius<1){
-                this.dRadius = -this.dRadius; 
-            }
-            this.x += this.dx;
-            this.y += this.dy;
-            this.r += this.dr;
-            this.g += this.dg;
-            this.b += this.db;
-            this.radius += this.dRadius;
-            this.draw();
-        };
-    }  
+//         this.update = function(){
+//             if (this.x + this.radius > 1080 || this.x - this.radius < 0) {
+//                 this.dx = -this.dx;
+//             }   
+//             if (this.y + this.radius > 512 || this.y - this.radius < 0) {
+//                 this.dy = -this.dy;
+//             }
+//             if(this.r > 255 || this.r<1){
+//                 this.dr= -this.dr;
+//             }
+//             if(this.g > 255 || this.g<1){
+//                 this.dg= -this.dg;
+//             }
+//             if(this.b > 255 || this.b<1){
+//                 this.db= -this.db;
+//             }
+//             if(this.radius>100|| this.radius<1){
+//                 this.dRadius = -this.dRadius; 
+//             }
+//             this.x += this.dx;
+//             this.y += this.dy;
+//             this.r += this.dr;
+//             this.g += this.dg;
+//             this.b += this.db;
+//             this.radius += this.dRadius;
+//             this.draw();
+//         };
+//     }  
 
-    let objArray =[];
+//     let objArray =[];
 
-        for (let i=0;i<1;i++){
-        let radius = Math.floor((Math.random() * 100) +6);
-        let dRadius =2;
-        let x = Math.random() * (1080 - radius* 2) + radius;
-        let y = Math.random()* (512 - radius *2) +  radius;
-        let dx = 1;
-        let dy = 1;
-        let r = Math.floor((Math.random() * 255) +1);
-        let dr= 1/4;
-        let g = Math.floor((Math.random() * 255) +1);
-        let dg= 1/4;
-        let b = Math.floor((Math.random()*255)+1);
-        let db = 1/4;
-    objArray.push(new AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db));
-}
+//         for (let i=0;i<1;i++){
+//         let radius = Math.floor((Math.random() * 100) +6);
+//         let dRadius =2;
+//         let x = Math.random() * (1080 - radius* 2) + radius;
+//         let y = Math.random()* (512 - radius *2) +  radius;
+//         let dx = 1;
+//         let dy = 1;
+//         let r = Math.floor((Math.random() * 255) +1);
+//         let dr= 1/4;
+//         let g = Math.floor((Math.random() * 255) +1);
+//         let dg= 1/4;
+//         let b = Math.floor((Math.random()*255)+1);
+//         let db = 1/4;
+//     objArray.push(new AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db));
+// }
 
 
-    function animate(){
-            window.requestAnimationFrame(animate);
-            c.clearRect(0, 0, 1080, 512);  
-            for(let i=0;i<objArray.length; i++){
-            objArray[i].update();
-            } 
-    }
+//     function animate(){
+//             window.requestAnimationFrame(animate);
+//             c.clearRect(0, 0, 1080, 512);  
+//             for(let i=0;i<objArray.length; i++){
+//             objArray[i].update();
+//             } 
+//     }
 
-   animate();
+//    animate();
 
-};
+// };
 
 
 
@@ -297,62 +297,62 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 /////////////////////////////////////////
 
-    // let drawMovingObject = (data)=>{
-        
-    //     function TenPrint(x,y,dx,dy){
-    //         this.x = data.x1;
-    //         this.y = data.y1;
-    //         this.dx = dx;
-    //         this.dy = dy;
+    let drawMovingObject = (data)=>{
+        console.log(data);
+        function TenPrint(x,y,dx,dy){
+            this.x = data.x1;
+            this.y = data.y1;
+            this.dx = dx;
+            this.dy = dy;
             
-    //         this.draw = function(){
-    //         c.beginPath();
-    //         c.lineTo(this.x, this.y);
-    //         c.lineTo(data.x1, data.y1);
-    //         c.font = "25px Futura";
-    //         // c.strokeText(data.paramImageText,this.x,this.y);
-    //         c.strokeStyle = "red";
-    //         c.stroke();
-    //         };
+            this.draw = function(){
+            c.beginPath();
+            c.lineTo(this.x, this.y);
+            c.lineTo(data.x1, data.y1);
+            c.font = "25px Futura";
+            c.strokeText(data.paramImageText,this.x,this.y);
+            c.strokeStyle='rgb(' + data.x1 +',' + data.y1 + ',' + 0 + ')';
+            c.stroke();
+            };
 
-    //         this.update = function(){
-    //             if (this.x > 1080 || this.x < 0) {
-    //             this.dx = -this.dx;
-    //         }
-    //             if (this.y > 512|| this.y < 0) {
-    //             this.dy = -this.dy;
-    //         }
-    //             this.x += this.dx;
-    //             this.y += this.dy;
+            this.update = function(){
+                if (this.x > 1080 || this.x < 0) {
+                this.dx = -this.dx;
+            }
+                if (this.y > 512|| this.y < 0) {
+                this.dy = -this.dy;
+            }
+                this.x += this.dx;
+                this.y += this.dy;
 
-    //             this.draw();
-    //         };
-    //     }
+                this.draw();
+            };
+        }
 
-    //     let printArray = [];
+        let printArray = [];
 
-    //     for(let i=0; i<2;i++){
-    //         let f1 = data.x1;
-    //         let f2 = data.y1;
+        for(let i=0; i<2;i++){
+            let f1 = data.x1;
+            let f2 = data.y1;
 
-    //         let x = Math.floor(Math.random()*1);
-    //         let y = Math.floor(Math.random()*1);
-    //         let dx = Math.floor(Math.random()*(f1/10));
-    //         let dy = Math.floor(Math.random()*(10));
-    //         printArray.push(new TenPrint(x,y,dx,dy));
-    //     }   
+            let x = Math.floor(Math.random()*1);
+            let y = Math.floor(Math.random()*1);
+            let dx = Math.floor(Math.random()*(f1/10));
+            let dy = Math.floor(Math.random()*(10));
+            printArray.push(new TenPrint(x,y,dx,dy));
+        }   
 
-    //     function drawTenPrint(){
-    //         window.requestAnimationFrame(drawTenPrint);
+        function drawTenPrint(){
+            window.requestAnimationFrame(drawTenPrint);
 
-    //         c.clearRect(0,0, 1040,1040 );
-    //         for(let i=0;i<printArray.length; i++){
-    //             printArray[i].update();
-    //         }
-    //     }
+            c.clearRect(0,0, 1040,1040 );
+            for(let i=0;i<printArray.length; i++){
+                printArray[i].update();
+            }
+        }
 
-    //     drawTenPrint();
-    // };
+        drawTenPrint();
+    };
 
     let squiggle = (data)=>{
   
