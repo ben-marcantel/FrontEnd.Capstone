@@ -7,21 +7,27 @@
             <ul class ="formInputs">
                 <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name"></li>
                 <li></li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)" ></li>
-               <li>left or right 
-               <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "0"  max= "1080"> </li>  
-                <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "0"  max= "512"></li>   
+                <li>trail on<input type= "range"  ng-model= "formData.switch" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+                <li>animationOnOff<input type= "range"  ng-model= "formData.anOnOff" ng-change= "submitData(formData)" min= "0"  max= "1"></li>
+                
+                <li>shape type<input type= "range"  ng-model= "formData.shape" ng-change= "submitData(formData)" min= "0"  max= "3"></li> 
+                <li>left or right 
+                <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "0"  max= "1080"> </li>  
+                <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "0"  max= "512"></li>  
                 <li>left 1 or right 1<input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "0"  max= "1080"></li>    
                 <li>up 1 or down 1<input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "0"  max= "512"></li>  
-               <li>up 2 or down 2 <input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "0"  max= "1080"></li>   
-                <li>up2 or down 2<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "0"  max= "512"></li> 
-                <li>speed <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "0"  max= "1080"></li> 
-                <li>rgb range<input type= "range"  ng-model= "formData.rgbR" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
-                <li>hsl<input type= "range"  ng-model= "formData.hsl" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
-                <li>path type<input type= "range"  ng-model= "formData.mPath" ng-change= "submitData(formData)" min= "0"  max= "2"></li> 
-                <li>boundry left or right<input type= "range"  ng-model= "formData.consBX" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
-                <li>boundry up or down<input type= "range"  ng-model= "formData.consBY" ng-change= "submitData(formData)" min= "0"  max= "100"></li> 
-                <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "0"  max= "15"></li>
-                <li>radius<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "0"  max= "15"></li> 
+               <li>blur up or down  <input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "0"  max= "20"></li>   
+                <li>blur left or right <input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "0"  max= "20"></li> 
+                <li>speed <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "1"  max= "10"></li> 
+                <li>r range<input type= "range"  ng-model= "formData.r" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                <li>g range<input type= "range"  ng-model= "formData.g" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                <li>b range<input type= "range"  ng-model= "formData.b" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                <li> shadow on off <input type= "range"  ng-model= "formData.blur" ng-change= "submitData(formData)" min= "0"  max= "1"></li> 
+                <li> shadow transparency <input type= "range"  ng-model= "formData.blurAmt" ng-change= "submitData(formData)" min= "0"  max= "100"></li> 
+                <li>fill mode<input type= "range"  ng-model= "formData.fillSw" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+                <li>path shape<input type= "range"  ng-model= "formData.path" ng-change= "submitData(formData)" min= "0"  max= "1"></li> 
+                <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "1"  max= "15"></li>
+                <li>radius<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "1"  max= "500"></li> 
             </ul>
                                  <!-- //recall parameter -->
             <div>

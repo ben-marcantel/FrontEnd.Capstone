@@ -5,9 +5,9 @@ angular.module("PseudoSceneApp")
     .controller("AnimateCtrl", function($scope, $document, $window, $route, $animate, DataShareFactory, AnimationFactory){
         let window = $window;
         $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
-        const  cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+        let  cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
         let canvas = $document[0].getElementById("canvas1");
-        const c = $document[0].getElementById("canvas1").getContext('2d');
+        let c = $document[0].getElementById("canvas1").getContext('2d');
         let image;
         let dataFromGetter;
         let animationToPause;
@@ -29,8 +29,8 @@ angular.module("PseudoSceneApp")
 
 ///////////PAUSE ANIMATION///////////
     $scope.stopAnimation = ()=>{
-        // $animate.enabled(c, false);
-        AnimationFactory.pauseAnimation();
+        $route.reload("/scene");
+        // AnimationFactory.pauseAnimation();
         return;
     };
 
@@ -43,17 +43,14 @@ angular.module("PseudoSceneApp")
 //////////////////////////EQUATION CALLERS////////////////////////////
     $scope.static = ()=>{
         $scope.formExe();
-        // AnimationFactory.squiggle(dataFromGetter);
-        AnimationFactory.draw(dataFromGetter);
+        AnimationFactory.drawStatic(dataFromGetter);
     };
 
     $scope.animate = ()=>{
         $scope.formExe();
         AnimationFactory.drawMovingObject(dataFromGetter);
-        // animationToPause = AnimationFactory.drawTenPrint();
     };
-    
-
+   
 
 });
 

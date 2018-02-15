@@ -18,16 +18,19 @@ angular.module("PseudoSceneApp").factory("DataShareFactory", function() {
         formObject.r = formData.r;
         formObject.g = formData.g;
         formObject.b = formData.b;
-        formObject.hsl = formData.hsl;
+        formObject.blur = formData.blur;
+        formObject.blurAmt =formData.blurAmt;
         formObject.fontsize = formData.fontsize;
         formObject.rgbRange = formData.rgb;
-        formObject.movementPath =()=>{};
-        formObject.consBounX = 1080;
-        formObject.consBounY = 512;
-        formObject.numObjects = formData.numObjects;
+        formObject.shape = formData.shape;
+        formObject.fillSw = formData.fillSw;
+        formObject.path = formData.path;
+        formObject.numObj = formData.numObj;
         formObject.paramName = formData.paramName;
         formObject.paramImageText = formData.paramImageText;
         formObject.radius = formData.radius;
+        formObject.switch = formData.switch;
+        formObject.anOnOff = formData.anOnOff; 
         console.log("set data", formData);
     };
 
