@@ -36,6 +36,10 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
     let c;
     let dx;
     let dy;
+    let dx1;
+    let dy1;
+    let velocity;
+    let radians;
 
 
               
@@ -46,11 +50,15 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
    
      c = $document[0].getElementById("canvas1").getContext('2d');
 
-        function AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db,radians,velocity){
+        function AnimaObj(x,y,x1,y1,dx,dy,radius,dRadius,r,dr,g,dg,b,db,radians,velocity){
             this.x = x;
             this.y = y;
+            this.x1 = x1;
+            this.y1 = y1;
             this.dx = dx;
             this.dy = dy;
+            this.dx1 = dx1;
+            this.dy1 = dy1;
             this.radius = Math.floor((Math.random() * 100) + 6);
             this.dRadius = 1;
             this.r = Math.floor((Math.random() * 255) +1);
@@ -68,16 +76,21 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             let shapeChoose = (data)=>{
                 
                 if (data.shape === 0){
-                    
-                } else if (data.shape === 1){
-                    c.lineTo(this.x, this.y);
                     c.lineTo(data.x, data.y);
+                    c.lineTo(this.x, this.y);
+                    c.lineTo(this.x1, this.y1);
+                    c.lineTo(data.x1,data.y1);
+                   
+                } else if (data.shape === 1){
+                    c.lineTo(this.x + data.x + 1/20, this.y + data.y);
+                    c.lineTo(this.x + data.y1, this.y + data.y1);
+
                 } else if (data.shape === 2){
-                    c.lineTo(this.x*4/4, this.y*3/4);
-                    c.lineTo(this.x1, this.y1*1/4);
+                    c.lineTo((this.x*4/4)/10, (this.y*3/4)/10);
+                    c.lineTo(this.x, this.y*1/4);
                     c.fill();
                 } else {
-                    c.arc(this.x, this.y, data.radius, 0, Math.PI *2, false);
+                    c.arc(this.x + data.x, this.y+data.y, data.radius, 0, Math.PI *2, false);
                     
                 }    
             };
@@ -94,12 +107,10 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 /////FILL TODO INTEGRATE WITH FORM!!!!//////
             let fillOnOff = (data)=>{
-                if (data.fillSw === 0){
-                    c.fillStyle="rgba(0,0,0,0.00)";
-                } else if (data.fillSw === 1 ) {
-                    c.fillStyle = 'rgb(' + data.r +',' + data.g + ',' + data.b + ')';
-                } if (data.fillSw === 2){
-                    c.fillStyle = 'rgb(' + this.r +',' + this.g + ',' + this.b + ')';
+                if (data.fillSw === 0 ) {
+                    c.strokeStyle = 'rgb(' + data.r +',' + data.g + ',' + data.b + ')';
+                } else if (data.fillSw === 1){
+                    c.strokeStyle = 'rgb(' + this.r +',' + this.g + ',' + this.b + ')';
                 }
             };
 
@@ -125,8 +136,9 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 shapeChoose(data);
                 textData(data);
                 c.strokeStyle='rgb(' + data.r +',' + data.g + ',' + data.b + ')';
-                // fillOnOff(data);
+                fillOnOff(data);
                 blurOnOff(data);
+                c.rotate((data.v * Math.PI)/ 180);
                 c.stroke();
                 };
 
@@ -149,25 +161,41 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 ////////////////PATH DEFINE
                 if (data.path === 0 ){
-                    this.x =  x + (Math.cos(this.radians)*100);
-                    this.y =  y + (Math.sin(this.radians)*100);
+                    this.x = data.x + x + (Math.cos(this.radians)*150);
+                    this.y =  data.y + y + (Math.sin(this.radians)*150);
 
-                } else if(data.path === 1){
-                    this.x = x+ Math.cos(this.x * data.v) * 10+data.x1;
-                    this.y = y+ Math.sin(this.y * data.v) * 10;
+                    
+                }  else if(data.path === 1){
+                    this.x = data.x + x + (Math.cos(this.radians)*150);
+                    this.y = data.y +y + Math.sin(this.radians)*this.radius;
+                    this.x1 = y1+(Math.cos(this.radians))+(Math.cos(this.radians)* this.x);
+                    this.y1 = y1 +data.y +y + Math.sin(this.radians)*10+Math.sin(this.radians*1/this.y1);
+                } else if(data.path === 2){
+                    this.x = data.x;
+                    this.y = data.y; 
+                    this.x1 = data.x1;
+                    this.y1 = data.y1;  
                 }
                 
                 /////////RANDOM
-                else if(data.path === 2){
+                else if (data.path === 3){
                     this.x += this.dx;
                     this.y += this.dy; 
-                }
+                    this.x1 += this.dx1;
+                    this.y1 += this.dy1; 
+                }   
 
                 if (this.x + data.radius > 1080 || this.x - data.radius < 0) {
                     this.dx = -this.dx;
                 }   
                 if (this.y + data.radius > 512 || this.y - data.radius < 0) {
                     this.dy = -this.dy;
+                }
+                if (this.x1 + data.radius > 1080 || this.x1 - data.radius < 0) {
+                    this.dx1 = -this.dx1;
+                }   
+                if (this.y1 + data.radius > 512 || this.y1 - data.radius < 0) {
+                    this.dy1 = -this.dy1;
                 }
 
                 this.r += this.dr;
@@ -183,15 +211,18 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
         let printArray = [];
 
         for(let i=0; i<2;i++){
-            let x = (Math.floor (Math.random()*10)) + data.radius;
-            let y = (Math.floor (Math.random()*10))  + data.radius;
+            let x =  (Math.floor (Math.random()*10)) + data.radius;
+            let y =  (Math.floor (Math.random()*10))  + data.radius;
+            let x1 = (Math.floor (Math.random()*100))  + data.radius;
+            let y1 = (Math.floor (Math.random()*100))  + data.radius;
             let dx = 1;
             let dy = 1;
-            printArray.push(new AnimaObj(x,y,dx,dy,radius,dRadius,r,dr,g,dg,b,db));
+            let dx1 = 1;
+            let dy1 = 1; 
+            printArray.push(new AnimaObj(x,y,x1,y1,dx,dy,radius,dRadius,r,dr,g,dg,b,db,radians,velocity));
         }   
 
         let trailOnOff = ()=>{
-            console.log("yo",data.switch);
             if (data.switch === 0){
                 c.clearRect(0,0, 1080,1080);  
             } else if (data.switch === 1) {
