@@ -1,4 +1,5 @@
 <div ng-controller="LogInCtrl"> 
+        <div class = "landing">WELCOME TO JAVA LAMP</div>
     <ul ng-repeat="item in loginInput" class="login">
         <li>
             <a ng-show="{{item.bang}}loggedIn" href="#" ng-click="logInAuth(item.name)">{{item.name}}</a>
