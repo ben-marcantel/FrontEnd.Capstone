@@ -31,12 +31,15 @@ angular.module("PseudoSceneApp").factory("DataShareFactory", function() {
         formObject.radius = formData.radius;
         formObject.switch = formData.switch;
         formObject.anOnOff = formData.anOnOff; 
-        console.log("set data", formData);
     };
 
     let getData = function() {
         return formObject;
     };
 
-        return {setData, getData};
+    let setImage = function() {
+        // to send to scene ctrl if needed;
+    };
+
+        return {setData, getData, setImage};
 });

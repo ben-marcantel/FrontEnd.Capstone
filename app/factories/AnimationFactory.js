@@ -23,7 +23,6 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
     let fontsize = null;
     let end = null;
     let rgbRange = null;
-    let movementPath =()=>{};
     let consBounX = 1080;
     let consBounY = 512;
     let numObjects = 1;
@@ -71,30 +70,30 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             this.velocity = 0.05;
         
 /////////DRAW HELPER FUNCTIONS/////
-//    let lastPoint = {x:this.x, y:this.y};
-
+            let lastPoint = {x:this.x, y:this.y, x1:this.x1, y1:this.y1};
             let shapeChoose = (data)=>{
                 
                 if (data.shape === 0){
-                    c.lineTo(data.x, data.y);
+                    c.lineTo(lastPoint.x, lastPoint.y);
                     c.lineTo(this.x, this.y);
                     c.lineTo(this.x1, this.y1);
-                    c.lineTo(data.x1,data.y1);
+                    c.lineTo(Math.sin(lastPoint.x1),lastPoint.y1);
+                    c.lineTo(lastPoint.x1, lastPoint.y1);
                    
                 } else if (data.shape === 1){
                     c.lineTo(this.x + data.x + 1/20, this.y + data.y);
                     c.lineTo(this.x + data.y1, this.y + data.y1);
 
                 } else if (data.shape === 2){
-                    c.lineTo((this.x*4/4)/10, (this.y*3/4)/10);
-                    c.lineTo(this.x, this.y*1/4);
+                    c.lineTo((this.x * 4/4)/10, (this.y * 3/4)/10);
+                    c.lineTo(this.x, this.y * 1/4);
                     c.fill();
                 } else {
-                    c.arc(this.x + data.x, this.y+data.y, data.radius, 0, Math.PI *2, false);
+                    c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
                     
                 }    
             };
-////////////TEXT//////
+////////TEXT///
             let textData = (data)=>{
                 if (data.paramImageText === undefined){
                     return   c.strokeText("",this.x,this.y);
@@ -103,9 +102,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     c.strokeText(data.paramImageText,this.x,this.y);
                 }
             };
-
-
-/////FILL TODO INTEGRATE WITH FORM!!!!//////
+////////FILL///
             let fillOnOff = (data)=>{
                 if (data.fillSw === 0 ) {
                     c.strokeStyle = 'rgb(' + data.r +',' + data.g + ',' + data.b + ')';
@@ -113,9 +110,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     c.strokeStyle = 'rgb(' + this.r +',' + this.g + ',' + this.b + ')';
                 }
             };
-
-
-/////BLUR//////
+////////BLUR///
             let blurOnOff = (data)=>{
                 if (data.blur === 0){
                     c.shadowColor = 'rgb(' + data.r +',' + data.g + ',' + data.b + ')';
@@ -159,7 +154,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 }
                 this.radians += this.velocity;
 
-////////////////PATH DEFINE
+/////PATH DEFINE//
                 if (data.path === 0 ){
                     this.x = data.x + x + (Math.cos(this.radians)*150);
                     this.y =  data.y + y + (Math.sin(this.radians)*150);
@@ -169,16 +164,24 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     this.x = data.x + x + (Math.cos(this.radians)*150);
                     this.y = data.y +y + Math.sin(this.radians)*this.radius;
                     this.x1 = y1+(Math.cos(this.radians))+(Math.cos(this.radians)* this.x);
-                    this.y1 = y1 +data.y +y + Math.sin(this.radians)*10+Math.sin(this.radians*1/this.y1);
+                    this.y1 = y1 +data.y +y + Math.sin(this.radians)*10+Math.sin
+                    (this.radians*1/this.y1);
+
                 } else if(data.path === 2){
                     this.x = data.x;
                     this.y = data.y; 
                     this.x1 = data.x1;
                     this.y1 = data.y1;  
                 }
+                 else if(data.path === 3){
+                    this.x = (lastPoint.x+this.x1)*data.x;
+                    this.y = (lastPoint.y+this.y1)*data.y; 
+                    this.x1 = lastPoint.x1+this.x;
+                    this.y1 = lastPoint.y1+this.y;  
+                }
                 
                 /////////RANDOM
-                else if (data.path === 3){
+                else if (data.path === 4){
                     this.x += this.dx;
                     this.y += this.dy; 
                     this.x1 += this.dx1;
@@ -212,9 +215,9 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
         for(let i=0; i<2;i++){
             let x =  (Math.floor (Math.random()*10)) + data.radius;
-            let y =  (Math.floor (Math.random()*10))  + data.radius;
-            let x1 = (Math.floor (Math.random()*100))  + data.radius;
-            let y1 = (Math.floor (Math.random()*100))  + data.radius;
+            let y =  (Math.floor (Math.random()*10)) + data.radius;
+            let x1 = (Math.floor (Math.random()*100)) + data.radius;
+            let y1 = (Math.floor (Math.random()*100)) + data.radius;
             let dx = 1;
             let dy = 1;
             let dx1 = 1;
@@ -235,36 +238,24 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
         };
 
         function drawObj(){
-            // id = window.requestAnimationFrame(drawObj);
-            // if (data.anOnOff === 0){
-            window.requestAnimationFrame(drawObj);
-                // } else {
-                    // window.cancelAnimationFrame(id);
-                // }
-            trailOnOff();
-            for(let i=0;i<printArray.length; i++){
-                printArray[i].update(data);
+            id = window.requestAnimationFrame(drawObj);
+            if (data.anOnOff === 0){
+                trailOnOff();
+                for (let i=0;i<printArray.length; i++){
+                    printArray[i].update(data);
+                } 
+            }   else if (data.anOnOff === 1){
+                    window.cancelAnimationFrame(id);
+                }
             }
-        }
 
         drawObj(data);
     };
 
-
-//////////////PAUSE ANIMATION//////////////////
-    let pauseAnimation= (currentAnime)=>{
-        console.log("maybe?");
-        $route.reload("/scene");
-        // window.cancelAnimationFrame(window.requestAnimationFrame(currentAnime)); 
-        return;
-    };
-////////////////////////////////////////  
-
-
-
-        return {drawMovingObject, pauseAnimation};
-    
+        return {drawMovingObject};    
 });
+
+
 
 
 //////////////////////////Static group///////////////////
@@ -470,90 +461,3 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
         // window.requestAnimationFrame(frame);
     // };
 
-////////////////////////AFTER P01//////////////////
-//     let time;
-//     let frame;
-//     let timeNextFrame; 
-//     let max = 96*60;
-//     let currentTime;
-//     let vines = {};
-//     let dx;
-//     let dy;
-//     let p;
-
-
-// //run on load
-//     function update(){
-
-//         $window.requestAnimationFrame(update);
-
-//         if (!window.time){
-//         time = 0;
-//         frame = 0;
-//         timeNextFrame = 0; 
-//         vines = [{x:0, y:0, a:0, ai:0, w1:8, p:[], l:max}];
-//         }
-//         currentTime = Date.now()/1000;
-//         while(time < currentTime){
-//             while(time < timeNextFrame){
-//                 time += 1/16384;
-//             }
-//             frame++;
-//             time +=1/60;
-       
-        
-//         //update visuals
-//         vines = vines.filter(v => v.l--);
-//         // lifetime of vine^
-//         vines.forEach(v => {
-            
-//             dx = Math.cos(v.a)* (v.w1)/2;
-//             dy = Math.sin(v.a)* (v.w1)/2;
-//             v.x += dx;
-//             v.y += dy;
-//             v.a += v.ai / (v.w1) /2;
-//             v.p.splice(0, v.p.length - v.l);
-//             v.p.splice(0, v.p.length - 60 * 5);
-//             v.p.push({x:v.x, y:v.y, dx:dx, dy:dy});
-//             if (frame % 30 === 0) {
-//                 v.ai = Math.random() - (1/2);
-//             }
-//             if (v.w1 > 1 && Math.random () < v.l /16384/2){
-//                 vines.push({x:v.x, y:v.y, a:v.a, ai:v.ai, w1:v.w1/2, p:[], l:Math.min(v.l, 0 | v.w1 * 32 * (1+Math.random()))});
-//             }
-//         });
-
-//     }
-    
-// //render visuals
-
-//     c.height = 1080;
-//     c.width = 0 | c.height * c.innerWidth/c.innerHeight;
-
-//     let h = c.height;
-//     let w = c.width;
-//     let l;
-//     // 
-//     // c.translate(w/2,h/2);
-//     c.shadowBlur = 45;
-//     c.translate(w/2,h/2);
-//     vines.forEach(v => {
-//         // c.strokeStyle ='white';
-//         c.shadowColor ='hsl('+(v.a*60|0) + ',100%, '+ (60 + v.w1*5)+ '%)';
-//         c.strokeStyle ='hsl('+(v.a*60|0) + ',100%, '+ (60 + v.w1*5)+ '%)';
-//         if(v.w1 == 8) {
-//             c.translate(-v.x, -v.y);
-//         }
-       
-//         c.beginPath();
-//         let l = v.p.length -1;
-        
-//         for(let i=l; p < p.length ; i--){
-//             p = v.p[i]; 
-//            c.lineTo(p.x,p.y);
-//            c.lineTo(p.x,p.y);
-//        }
-//        c.stroke();
-//     });
-// }
-// update();
