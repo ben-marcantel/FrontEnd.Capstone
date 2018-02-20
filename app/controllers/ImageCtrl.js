@@ -9,8 +9,11 @@ angular.module("PseudoSceneApp")
         if (user) {
             DataFactory.getImage()
             .then((images)=>{
-                $scope.images= images.data;
-                console.log(images);
+                $scope.images =images;
+                // images.forEach(image => {
+                //     $scope.image = image.data;
+                // });
+                
                 
             });
         }
