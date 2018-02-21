@@ -1,4 +1,23 @@
 <div>
+    <!-- ///from canvas html/// -->
+<div class= "canvasCont">
+        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1080"></canvas>    
+</div>
+<div class="imageControls">
+
+<div ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear Image</div>
+<div ng-click="downloadImg()" ng-controller= "AnimateCtrl">Download Image</div>
+</div>
+
+<ul class ="imageType">Please select Image Type:
+        <li ng-click="static()" ng-controller= "AnimateCtrl">Static Image</li>
+        <li ng-click="animate()" ng-controller= "AnimateCtrl">Animate Image</li>
+</ul>
+
+
+
+<!-- /////Original html///// -->
+<div ng-click="galleryView()" ng-controller= "AnimateCtrl">Image Gallery View</div>
     <!-- //                            begin data form -->
     <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
         <!--                            sliders-->

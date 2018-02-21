@@ -1,9 +1,20 @@
-
-<div ng-repeat="image in images">
-    <ul>
+<div ng-click=back()>back to image editor</div>
+<div ng-repeat= "image in images">
+    <ul class= "imgSet">
         <li>
-            <img src="{{image.data}}">
-            
+            <img src= "{{image.data}}" id="{{image.imageId}}"> 
+
+            <form name= "imageForm" ng-submit= "submitForm(image,formData)">
+                <ul>
+                    <li><div ng-click= "delete(image.imageId)">delete from collection</div></li>
+
+                    <li><div ng-click = "submit(image,formData)">update</div></li>
+
+                    <li><input type= "text" ng-change= "submitForm(formData)" ng-model="formData.name" placeholder = "Enter Image Title"></li>
+                    {{image.name}}
+                    <li><input type= "checkbox" ng-change= "submitForm(formData)"  ng-model="formData.public">make public</div></li>
+                </ul> 
+            </form> 
         </li>
     </ul>
 </div>

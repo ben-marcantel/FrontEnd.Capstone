@@ -35,7 +35,6 @@ angular.module("PseudoSceneApp")
     $scope.clearImage = ()=>{
         c.beginPath();
         c.translate(0, 0);
-        c.rotate(0);
         c.closePath();
         c.clearRect(0, 0, 10000, 10000);
     };

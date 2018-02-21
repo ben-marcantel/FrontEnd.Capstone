@@ -32,7 +32,6 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
                     });
                     let paramsDataArr = Object.values(params.data);
                     resolve(paramsDataArr);
-                    console.log("form from database",paramsDataArr);
                 })
                 .catch((error) => {
                     reject(error);
@@ -44,13 +43,11 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
 
 
     function updateParameters(FbId,formData){
-        console.log("update form data in factory", formData);
         let updatedForm = JSON.stringify(formData);
         return $q((resolve, reject)=>{
             $http
             .put(`https://frontendcapstone-fe0b1.firebaseio.com/Users/${FbId}.json`,updatedForm)
             .then((data) => {
-                console.log(data);
                 resolve(data);
             })
             .catch((error) => {
@@ -94,23 +91,54 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
 
    function getImage(){
    
-   return $q((resolve, reject)=>{
-       $http
-       .get(`https://frontendcapstone-fe0b1.firebaseio.com/Images.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
-       .then((images) => {
-        let keys = Object.keys(images.data);
-        keys.forEach(key => {
-            images.data[key].imageId = key;
+        return $q((resolve, reject)=>{
+            $http
+            .get(`https://frontendcapstone-fe0b1.firebaseio.com/Images.json?orderBy="uid"&  equalTo="${firebase.auth().currentUser.uid}"`)
+            .then((images) => {
+                let keys = Object.keys(images.data);
+                keys.forEach(key => {
+                    images.data[key].imageId = key;
+                });
+                let imageArr = Object.values(images.data);
+                resolve(imageArr);
+            })
+            .catch((error) => {
+                reject(error);
+            });
         });
-        let imageArr = Object.values(images.data);
-        console.log("here", imageArr);
-           resolve(imageArr);
-       })
-       .catch((error) => {
-           reject(error);
-       });
-   });
-}
-    return { addParameter, getParameters, updateParameters, deleteParameter, addImage, getImage};
+    }
+
+
+    function updateImage(FbId,formData){
+            // console.log("update form data in factory", formData);
+        let updatedImage = JSON.stringify(formData);
+        return $q((resolve, reject)=>{
+            $http
+            .put(`https://frontendcapstone-fe0b1.firebaseio.com/Images/${FbId}.json`,updatedImage)
+            .then((data) => {
+            // console.log(data);
+                resolve(data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        });
+    }
+
+    function deleteImage(FbId) {
+        console.log(FbId);
+        // return $q((resolve, reject) => {
+        //     $http
+        //         .delete(`https://frontendcapstone-fe0b1.firebaseio.com/Images/${FbId}.json`)
+        //         .then((data) => {
+        //             resolve(data);
+        //         })
+        //         .catch((error) => {
+        //             reject(error);
+        //         });
+        // });
+    }
+
+    return { addParameter, getParameters, updateParameters, deleteParameter, addImage, getImage, updateImage, deleteImage};
 
 });
