@@ -77,7 +77,40 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
         });
     }
 
-    
-    return { addParameter, getParameters, updateParameters, deleteParameter };
+    //send image to database
+    function addImage(imageData){
+        
+       return $q((resolve, reject)=>{
+           $http
+           .post(`https://frontendcapstone-fe0b1.firebaseio.com/Images.json`, JSON.stringify(imageData))
+           .then((data) => {
+               resolve(data);
+           })
+           .catch((error) => {
+               reject(error);
+           });
+       });
+   }
+
+   function getImage(){
+   
+   return $q((resolve, reject)=>{
+       $http
+       .get(`https://frontendcapstone-fe0b1.firebaseio.com/Images.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+       .then((images) => {
+        let keys = Object.keys(images.data);
+        keys.forEach(key => {
+            images.data[key].imageId = key;
+        });
+        let imageArr = Object.values(images.data);
+        console.log("here", imageArr);
+           resolve(imageArr);
+       })
+       .catch((error) => {
+           reject(error);
+       });
+   });
+}
+    return { addParameter, getParameters, updateParameters, deleteParameter, addImage, getImage};
 
 });

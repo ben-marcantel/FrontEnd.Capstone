@@ -13,7 +13,11 @@ angular.module("PseudoSceneApp", ["ngRoute"])
         templateUrl: "/templates/partials/onload.html",
         controller: "AnimateCtrl", 
     })
-    .otherwise("/");
+    .when("/images", {
+        templateUrl: "/templates/partials/gallery.html",
+        controller: "ImageCtrl", 
+    })
+    .otherwise("/scene");
     })
     .run(FBcreds => {
         let creds = FBcreds;

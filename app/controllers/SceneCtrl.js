@@ -12,7 +12,6 @@ angular.module("PseudoSceneApp")
 /////////////////SETTER FOR DATA SHARE FACTORY
             $scope.submitData = function(formData)  { 
                         DataShareFactory.setData(formData);
-                          console.log("setter data",formData);
                      };   
                      
                      
@@ -68,7 +67,7 @@ angular.module("PseudoSceneApp")
                 // $scope.loadParam();
             };
 
-
+          
 
         }
     });
