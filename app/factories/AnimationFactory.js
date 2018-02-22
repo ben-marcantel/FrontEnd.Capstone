@@ -45,7 +45,15 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 ////////////////////////ANIMATION OBJECT/////////////////
 
     let drawMovingObject = (data)=>{
+        let dist = (x1, y1, x2, y2)=> {
+            let xDist = x2 - x1;
+            let yDist = y2 - y1;
+            return Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+        };
 
+        let randNum = (min, max)=> {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        };
    
      c = $document[0].getElementById("canvas1").getContext('2d');
 
@@ -58,27 +66,29 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             this.dy = dy;
             this.dx1 = dx1;
             this.dy1 = dy1;
-            this.radius = Math.floor((Math.random() * 100) + 6);
-            this.dRadius = 1;
-            this.r = Math.floor((Math.random() * 255) +1);
-            this.dr= 1/4;
-            this.g = Math.floor((Math.random() * 255) +1);
-            this.dg= 1/4;
-            this.b = Math.floor((Math.random()* 255)+1);
-            this.db = 1/4;
-            this.radians = 8;
-            this.velocity = 0.05;
+            this.radius = radius;
+            this.dRadius = dRadius;
+            this.r = r;
+            this.dr= dr;
+            this.g = g;
+            this.dg= dg;
+            this.b = b;
+            this.db = db;
+            this.radians = radians;
+            this.velocity = velocity;
+            this.distOfCntr = {x:randNum(50,200), y:randNum(100,200)};
         
 /////////DRAW HELPER FUNCTIONS/////
-            let lastPoint = {x:this.x, y:this.y, x1:this.x1, y1:this.y1};
+
+     
+
+            let lastPoint;
             let shapeChoose = (data)=>{
                 
                 if (data.shape === 0){
-                    c.lineTo(lastPoint.x, lastPoint.y);
-                    c.lineTo(this.x, this.y);
-                    c.lineTo(this.x1, this.y1);
-                    c.lineTo(Math.sin(lastPoint.x1),lastPoint.y1);
-                    c.lineTo(lastPoint.x1, lastPoint.y1);
+                    c.lineWidth = data.radius;
+                    c.moveTo(lastPoint.x,lastPoint.y);
+                    c.lineTo(this.x,this.y);
                    
                 } else if (data.shape === 1){
                     c.lineTo(this.x + data.x + 1/20, this.y + data.y);
@@ -126,7 +136,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
      
             };
 
-            this.draw = function(data){
+            this.draw = function(lastPoint,data){
                 c.beginPath();
                 shapeChoose(data);
                 textData(data);
@@ -139,6 +149,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 
             this.update = function(){
+                lastPoint = {x:this.x, y:this.y, x1:this.x1, y1:this.y1};
                 
                 if(this.r > 255 || this.r<1){
                     this.dr= -this.dr;
@@ -156,13 +167,13 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 /////PATH DEFINE//
                 if (data.path === 0 ){
-                    this.x = data.x + x + (Math.cos(this.radians)*150);
-                    this.y =  data.y + y + (Math.sin(this.radians)*150);
+                    this.x = data.x + x + (Math.cos(this.radians) * this.distOfCntr.x);
+                    this.y =  data.y + y + (Math.sin(this.radians)*this.distOfCntr.y);
 
                     
                 }  else if(data.path === 1){
                     this.x = data.x + x + (Math.cos(this.radians)*150);
-                    this.y = data.y +y + Math.sin(this.radians)*this.radius;
+                    this.y = data.y + y + (Math.sin(2*this.radians)*100);
                     this.x1 = y1+(Math.cos(this.radians))+(Math.cos(this.radians)* this.x);
                     this.y1 = y1 +data.y +y + Math.sin(this.radians)*10+Math.sin
                     (this.radians*1/this.y1);
@@ -174,10 +185,10 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     this.y1 = data.y1;  
                 }
                  else if(data.path === 3){
-                    this.x = (lastPoint.x+this.x1)*data.x;
-                    this.y = (lastPoint.y+this.y1)*data.y; 
-                    this.x1 = lastPoint.x1+this.x;
-                    this.y1 = lastPoint.y1+this.y;  
+                    this.x = x + Math.sin(this.radians)*100+Math.sin(this.radians*3)*10+ Math.sin(this.radians*4)+ data.x;
+                    this.y = y + Math.cos(this.radians*4)*100+data.y+ Math.cos(this.radians*4); 
+                    this.x1 = this.x;
+                    this.y1 = this.y;  
                 }
                 
                 /////////RANDOM
@@ -200,20 +211,20 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 if (this.y1 + data.radius > 512 || this.y1 - data.radius < 0) {
                     this.dy1 = -this.dy1;
                 }
-
+                this.radians += this.velocity;
                 this.r += this.dr;
                 this.g += this.dg;
                 this.b += this.db;
                 this.radius += this.dRadius;
-                this.draw(data);
+                this.draw(lastPoint, data);
                 
                 };
             }
-       
+       let printArray;
+    let implement = ()=>{
+         printArray = [];
 
-        let printArray = [];
-
-        for(let i=0; i<2;i++){
+        for(let i=0; i<3;i++){
             let x =  (Math.floor (Math.random()*10)) + data.radius;
             let y =  (Math.floor (Math.random()*10)) + data.radius;
             let x1 = (Math.floor (Math.random()*100)) + data.radius;
@@ -222,8 +233,20 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             let dy = 1;
             let dx1 = 1;
             let dy1 = 1; 
+            let r = Math.floor((Math.random() * 255) +1);
+            let g = Math.floor((Math.random() * 255) +1);
+            let b = Math.floor((Math.random() * 255) +1);
+            let dr = 1/4;
+            let dg = 1/4;
+            let db = 1/4;
+            let radius = (Math.random()*2)+1;
+            let dradius = 1;
+            let radians = Math.random()*Math.PI*2;
+            let velocity = 0.005;
             printArray.push(new AnimaObj(x,y,x1,y1,dx,dy,radius,dRadius,r,dr,g,dg,b,db,radians,velocity));
         }   
+    };
+  
 
         let trailOnOff = ()=>{
             if (data.switch === 0){
@@ -249,6 +272,8 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 }
             }
 
+
+        implement();
         drawObj(data);
     };
 
