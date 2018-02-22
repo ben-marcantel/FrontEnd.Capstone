@@ -95,9 +95,9 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     c.lineTo(this.x + data.y1, this.y + data.y1);
 
                 } else if (data.shape === 2){
-                    c.lineTo((this.x * 4/4)/10, (this.y * 3/4)/10);
-                    c.lineTo(this.x, this.y * 1/4);
-                    c.fill();
+                    // c.lineTo((this.x * 4/4)/10, (this.y * 3/4)/10);
+                    // c.lineTo(this.x, this.y * 1/4);
+                    // c.fill();
                 } else {
                     c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
                     
@@ -125,8 +125,8 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 if (data.blur === 0){
                     c.shadowColor = 'rgb(' + data.r +',' + data.g + ',' + data.b + ')';
                     c.shadowBlur = data.blurAmt;
-                    c.shadowOffsetX = this.x + data.x2/10;
-                    c.shadowOffsetY = this.y + data.y2/10;
+                    c.shadowOffsetX = this.x;
+                    c.shadowOffsetY = this.y;
                 } else if (data.blur === 1){
                     c.shadowColor = "rgba(0,0,0,0.00)";
                     c.shadowBlur = 0;
@@ -143,7 +143,9 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 c.strokeStyle='rgb(' + data.r +',' + data.g + ',' + data.b + ')';
                 fillOnOff(data);
                 blurOnOff(data);
-                c.rotate((data.v * Math.PI)/ 180);
+                c.setTransform((data.y2/100) ,(data.x2/100),(data.x2/100),(data.y2/100),(data.x/100),(data.y/100) );
+                c.rotate((data.y1 * Math.PI)/ 180);
+                // c.skew(data.x2/100);
                 c.stroke();
                 };
 

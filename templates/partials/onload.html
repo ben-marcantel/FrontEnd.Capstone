@@ -1,97 +1,126 @@
+ <!-- ///from canvas html/// -->
 <div>
-    <!-- ///from canvas html/// -->
-<div class= "canvasCont">
-        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1080"></canvas>    
-</div>
-<div class="imageControls">
-
-<div ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear Image</div>
-<div ng-click="downloadImg()" ng-controller= "AnimateCtrl">Download Image</div>
-</div>
-
-<ul class ="imageType">Please select Image Type:
-        <li ng-click="static()" ng-controller= "AnimateCtrl">Static Image</li>
-        <li ng-click="animate()" ng-controller= "AnimateCtrl">Animate Image</li>
-</ul>
+   
+    <ul class="topHalf">
+        <li>
+            <div class= "canvasCont">
+                <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1080"></canvas>    
+            </div>
+        </li>
+        <li >
+          
+        </li>
+    </ul>   
+<div >
 
 
 
 <!-- /////Original html///// -->
-<div ng-click="galleryView()" ng-controller= "AnimateCtrl">Image Gallery View</div>
-    <!-- //                            begin data form -->
+
     <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
-        <!--                            sliders-->
-        <div class= "dataSetsCont">
-        <!-- //value inputs -->
-            <ul class ="formInputs">
-                <li ng-change= "submitData(formData)" ng-model="formData.numObj">Initialize</li>
-                <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name"></li>
+        <ul  class="dataSetsCont">
+                <li>
+                        <ul class="imageControls">
+                                <li ng-click="animate()" ng-controller= "AnimateCtrl">Image Animate</li>
+                                <li ng-click="clearImage()"  ng-controller= "AnimateCtrl">Image Clear</li>
+                                <li ng-click="downloadImg()" ng-controller= "AnimateCtrl">Image Save</li>
+                                <li  ng-click="galleryView()" ng-controller= "AnimateCtrl">Image Gallery View</li>
+                            </ul>
+                </li>
+            <li>
+                    <ul class ="formInputs">
+                            <li class=group1>
+                                <ul class= "subgroup1">
+                                    
+                                    <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name"></li>
+            
+                                    <li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)"></li>
 
-                <li></li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)" ></li>
+                                    <li>animationOnOff<input type= "range"  ng-model= "formData.anOnOff" ng-change= "submitData(formData)" min= "0"  max= "1"></li>
+            
+                                    <li>trail on<input type= "range"  ng-model= "formData.switch" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+            
+                                    <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "1"  max= "15"></li>
+                                </ul>
+                            </li>
+                            <li class ="group1">
+                               <ul class= "subgroup1">
+                                    <li>shape type<input type= "range"  ng-model= "formData.shape" ng-change= "submitData(formData)" min= "0"  max= "3"></li> 
+            
+                                    <li>shape path<input type= "range"  ng-model= "formData.path" ng-change= "submitData(formData)" min= "0"  max= "4"></li> 
+            
+                                    <li>shape size<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "1"  max= "500"></li> 
+            
+                                    <li>left or right 
+                                    <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "-1080"  max= "1080"></li>  
+                    
+                                    <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "-512"  max= "512"></li> 
+                               </ul>
+                            </li>
+                            <li class="group1">
+                                <ul class= "subgroup1">
+                                    <li>color mode<input type= "range"  ng-model= "formData.fillSw" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+            
+                                    <li>red level<input type= "range"  ng-model= "formData.r" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+            
+                                    <li>green level<input type= "range"  ng-model= "formData.g" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                    
+                                    <li>blue level<input type= "range"  ng-model= "formData.b" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                    
+                                    <li> blur on off <input type= "range"  ng-model= "formData.blur" ng-change= "submitData(formData)" min= "0"  max= "1"></li> 
+                    
+                                    <li> blur transparency <input type= "range"  ng-model= "formData.blurAmt" ng-change= "submitData(formData)" min= "0"  max= "100"></li> 
+                                </ul>
+                            </li>
+                            <li class="group1">
+                                <ul class= "subgroup1">
 
-                <li>trail on<input type= "range"  ng-model= "formData.switch" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+                                    <li>speed <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "1"  max= "100"></li> 
 
-                <li>animationOnOff<input type= "range"  ng-model= "formData.anOnOff" ng-change= "submitData(formData)" min= "0"  max= "1"></li>
-                
-                <li>shape type<input type= "range"  ng-model= "formData.shape" ng-change= "submitData(formData)" min= "0"  max= "3"></li> 
+                                    <li>translate<input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "-100"  max= "100"></li>   
 
-                <li>path shape<input type= "range"  ng-model= "formData.path" ng-change= "submitData(formData)" min= "0"  max= "4"></li> 
-                
-                <li>radius<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "1"  max= "500"></li> 
+                                    <li>rotate<input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "-100"  max= "100"></li> 
 
-                <li>left or right 
-                <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "0"  max= "1080"> </li>  
+                                    <li>scale<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "-100"  max= "100"></li> 
 
-                <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "0"  max= "512"></li> 
-
-                <li>left 1 or right 1<input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "0"  max= "1080"></li>   
-
-                <li>up 1 or down 1<input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "0"  max= "512"></li>  
-
-               <li>blur up or down  <input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "-10"  max= "10"></li>   
-
-                <li>blur left or right <input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "-10"  max= "10"></li> 
-
-                <li>rotation <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "-4"  max= "4"></li> 
-
-                <li>r range<input type= "range"  ng-model= "formData.r" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
-
-                <li>g range<input type= "range"  ng-model= "formData.g" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
-
-                <li>b range<input type= "range"  ng-model= "formData.b" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
-
-                <li> shadow on off <input type= "range"  ng-model= "formData.blur" ng-change= "submitData(formData)" min= "0"  max= "1"></li> 
-
-                <li> shadow transparency <input type= "range"  ng-model= "formData.blurAmt" ng-change= "submitData(formData)" min= "0"  max= "100"></li> 
-
-                <li>color mode<input type= "range"  ng-model= "formData.fillSw" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
-
-               
-
-                <!-- <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "1"  max= "15"></li> -->
-
-                
-            </ul>
-                                 <!-- //recall parameter -->
-            <div>
-                <div class="savedParameterView">
-                        <ul class="parameterHeader">Parameter Sets
-                            <li ng-click="save()">:  Save  </li>
-                            <li ng-click="loadParam()">,  Load  </li>
-                            <li ng-click="exitParamEdit()">,  Exit  </li>
+                                    <li>skew<input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "-100"  max= "100"></li> 
+            
+                                    
+            
+                                      
+                                    
+            
+                                 </ul>
+                            </li>
                         </ul>
-                </div>
-                    <ul class= "paramCollection">
-                        <li class="paramName"ng-repeat= "param in params">
-                            <div id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}: Edit </div>
-                            <div ng-click="deleteParam(param.paramsId)">, Delete</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--                            dummy field display -->
-            <div class = "valueTest" ng-bind-template = {{formData.paramImageText}}:{{formData.paramImageText}} {{formData.v}}></div>
-            </div>
-    </form>
+            </li>
+            <li>
+                    <div class ="paramDiv">
+                            <div class="savedParameterView">
+                                    <ul class="parameterHeader">Parameter Sets
+                                        <li ng-click="save()">:  Save  </li>
+                                        <li ng-click="loadParam()">,  Load  </li>
+                                        <li ng-click="exitParamEdit()">,  Exit  </li>
+                                    </ul>
+                            </div>
+                                <ul class= "paramCollection">
+                                    <li class="paramName"ng-repeat= "param in params">
+                                        <div id ={{param.paramsId}} ng-click = "initSavedParam(param)">{{param.paramName}}: Edit </div>
+                                        <div ng-click="deleteParam(param.paramsId)">, Delete</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+ 
+                        <!-- <div class = "valueTest" ng-bind-template = {{formData.paramImageText}}:{{formData.paramImageText}} {{formData.v}}></div>
+                        </div> -->
+                </form>
+            </li>
+        </ul>
+
+            
+
+            
+           
 
 </div>

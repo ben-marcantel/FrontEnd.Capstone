@@ -11,7 +11,11 @@ body {
     background-image: url("../images/galaxyA.png");
     font-family: Futura;
 }
-
+.topHalf{
+    display: flex;
+    flex: wrap;
+    list-style: none;
+}
 //login
 
 .login{
@@ -21,22 +25,30 @@ body {
 
 // page layout
 .dataSetsCont{
+    list-style: none;
     display: flex;
 }
 
 .imageControls{
-    display: flex;
-    justify-content: space-evenly;
+    border-radius: 15px;
+    background-color: rgba(58, 87, 255, 0.445);
+    transition: background-color 1s;
+    display: block;
+    text-align: center;
+    list-style: none;
     
 }
-
+.imageControls li:hover{
+    color: rgb(187, 183, 241);
+    // background-color: rgba(58, 87, 255, 0.445);
+    transition: color 1s;
+}
 .imageType{
     display: flex;
     list-style: none;
 }
-.imageType li {
-    margin-left: 1em;
-}
+// .imageType li {
+// }
 ///onload partial
 
 .valueTest{
@@ -44,25 +56,154 @@ body {
 }
 
 .formInputs{
+    border-radius: 15px;
     list-style: none;
-    display: list-item;
-    overflow: scroll;
-    height: 10em;
-    width: 20em;
+    display: flex;
+    flex: wrap;   
+    height: 8em;
+    width: 45em;
+    overflow: scroll; 
+}
+.formInputs:hover{
+    
+    background-color: rgba(58, 87, 255, 0.445);
+    transition: background-color 2s;
 
+}
+.group1{
+    text-align: center;
+    // justify-content: center;
+    border-radius: 15px;
+    list-style: none;
+    height: 5em;
+    overflow: scroll; 
+    
+}
+.group1:hover{
+    
+    background-color: rgba(119, 140, 255, 0.445);
+    transition: background-color 1s;
+}
+.subgroup1{
+    text-align: center;
+    list-style: none;
+    height: 5em;
+    overflow: scroll; 
+}
+
+.subgroup1 li:hover {
+    color: rgb(187, 183, 241);
+    transition: text-shadow 1s;
+    text-shadow: 2px 2px 6px rgb(187, 183, 241);
+    transition: text-shadow 3s;
 }
 // saved div parameter
 .paramCollection{
-    background-color: rgba(240, 248, 255, 0.171);
-    height: 5em;
-    width: 25em;
+    text-align: center;
+    border-radius: 15px;
+    height: 4em;
+    width: 15em;
     overflow: scroll;
 }
+.paramDiv:hover {
+    border-radius: 15px;
+    background-color: rgba(58, 87, 255, 0.445);
+    transition: background-color 2s;
+}
+.paramCollection:hover {
+    background-color: rgba(119, 140, 255, 0.445);
+    transition: background-color 1s;
+}
+
+.paramCollection li:hover{
+    color: rgb(187, 183, 241);
+}
+
 .parameterHeader{
+    border-radius: 15px;
     display: flex;
     list-style: none;
+    text-align: center;
+}
+.parameterHeader:hover {
+    background-color: rgba(119, 140, 255, 0.445);
+    transition: background-color 1s;
+}
+.parameterHeader li:hover {
+    color: rgb(187, 183, 241);
+    transition: color 1s;
+    text-shadow: 2px 2px 6px rgb(187, 183, 241);
+    transition: text-shadow 3s;
 }
 
 .paramName{
+    text-align: center;
     display: flex;
+}
+.paramName li:hover {
+    text-align: center;
+    color: rgb(187, 183, 241);
+    transition: color 1s;
+    text-shadow: 2px 2px 6px rgb(187, 183, 241);
+    transition: text-shadow 3s;
+}
+/////////////GALLERY//////
+.backBtn{
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 15px;
+    background-color: rgba(187, 183, 241, 0.397);
+    
+
+}
+
+.backBtn:hover{
+    border-radius: 15px;
+    color: rgb(187, 183, 241);
+    transition: color 1s;
+    background-color: rgba(58, 87, 255, 0.445);
+    transition: background-color 3s;
+
+}
+
+.gallery{
+    border-radius: 15px;
+    // background-color: rgba(187, 183, 241, 0.397);
+    // transition: background-color 3s;
+    display: flex;
+    height: 35em;
+    width: 75em;
+    overflow: scroll;
+}
+.gallery:hover{
+    background-color: rgba(187, 183, 241, 0.397);
+    transition: background-color 4s;
+    // display: flex;
+    // height: 35em;
+    // width: 75em;
+    // overflow: scroll;
+}
+
+.imgSet{
+    list-style: none;
+}
+
+.imgForm {
+    border-radius: 15px;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.imgForm:hover {
+    background-color: rgba(58, 87, 255, 0.445);
+    transition: background-color 2s;
+}
+
+.imgForm li:hover {
+    text-align: center;
+    color: rgb(187, 183, 241);
+    transition: color 1s;
+    text-shadow: 2px 2px 6px rgb(187, 183, 241);
+    transition: text-shadow 3s;
 }

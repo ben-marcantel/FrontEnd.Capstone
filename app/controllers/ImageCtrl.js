@@ -7,20 +7,31 @@ angular.module("PseudoSceneApp")
  
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
+            
+            $scope.formData = {
+                data: null,
+                name: null,
+                imageId: null,
+                public: null,
+                uid: null
+            };
+           
+
 
             $scope.collection=()=>{
                 DataFactory.getImage()
                 .then((images)=>{
                     $scope.images = images;
+                    $scope.formData = images;
                 });
             };
            
+            
             $scope.back = ()=>{
                 $location.url("/scene");
             };
 
             $scope.update = (id,form)=>{
-                console.log(id,form);
                 DataFactory.updateImage(id,form)
                 .then(()=>{
                     $scope.collection();
@@ -28,20 +39,21 @@ angular.module("PseudoSceneApp")
             };
 
             $scope.delete = (imageId)=>{
-                console.log(imageId);
-                DataFactory.deleteParameter(imageId)
+                // console.log(imageId);
+                DataFactory.deleteImage(imageId)
                 .then(()=>{
-                   $scope.collection();
+                    $route.reload("/images");
                 });
             };
 
-            $scope.submit = (imageData,formData)=>{
+            $scope.submit = (formData, imageData)=>{
                 imageData.public = formData.public;
                 imageData.name = formData.name;
                 delete imageData.$$hashKey;
                 let newObj = imageData;
                 $scope.update(newObj.imageId,newObj);
             };
+
 
         $scope.collection();
 
