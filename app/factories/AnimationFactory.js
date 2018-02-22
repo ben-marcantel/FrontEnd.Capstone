@@ -279,7 +279,42 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
         drawObj(data);
     };
 
-        return {drawMovingObject};    
+////////////ONLOAD
+
+
+
+let onload =(data)=> {
+    c = $document[0].getElementById("landing").getContext('2d');
+    
+     for (var i = 0; i < 10; i++) {
+       for (var j = 0; j < 15; j++) {
+         c.save();
+         c.rotate((Math.PI / 180) * 10);
+         // c.fillStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
+         c.translate(50 + j * 50, 50 + i * 50);
+         c.fillRect(0, 0, 25 , 25);
+         c.strokeStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
+         // c.font = "25px Futura";
+         // c.strokeText(data.paramImageText,10,10);
+         c.restore();
+         c.stroke();
+         // c.rotate((Math.PI / 180) * (data.x1/100));
+         // window.requestAnimationFrame(draw);
+         }
+     }
+ };
+
+
+
+
+
+
+
+
+
+
+
+        return {drawMovingObject, onload};    
 });
 
 
@@ -287,25 +322,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
 //////////////////////////Static group///////////////////
    
-// let drawStatic =(data)=> {
-//     c = $document[0].getElementById("canvas1").getContext('2d');
-    
-//      // for (var i = 0; i < 10; i++) {
-//      //   for (var j = 0; j < 15; j++) {
-//      //     c.save();
-//      //     c.rotate((Math.PI / 180) * data.y1/10);
-//      //     // c.fillStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
-//      //     c.translate(50 + j * 50, 50 + i * 50);
-//      //     c.fillRect(0, 0, 25 , 25);
-//      //     c.strokeStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
-//      //     // c.font = "25px Futura";
-//      //     // c.strokeText(data.paramImageText,10,10);
-//      //     c.restore();
-//      //     // c.rotate((Math.PI / 180) * (data.x1/100));
-//      //     // window.requestAnimationFrame(draw);
-//      //     }
-//      // }
-//  };
+
 // let drawLsystem = (data)=>{
 
     //     let currentString = "X";

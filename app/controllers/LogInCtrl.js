@@ -1,8 +1,29 @@
 "use strict";
 
 
-angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFactory, $location, $window) {
-    
+angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFactory, $location, $window, AnimationFactory, DataFactory) {
+
+    $scope.onloadAnime=()=>{
+        AnimationFactory.onload()
+    };
+
+
+    $scope.get1stImage=()=>{
+        DataFactory.getImage()
+        .then((images)=>{
+        images.forEach(image => {
+                if(image.public === true){
+                    
+                }else{
+
+                };
+            });
+        });
+
+    }
+
+
+
 
     $scope.loginInput = [
         {
@@ -34,4 +55,7 @@ angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFa
         }
     });
     
+
+    $scope.onloadAnime();
+
 });
