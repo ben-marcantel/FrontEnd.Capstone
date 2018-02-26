@@ -30,7 +30,7 @@ angular.module("PseudoSceneApp").factory("DataShareFactory", function() {
         formObject.paramImageText = formData.paramImageText;
         formObject.radius = formData.radius;
         formObject.switch = formData.switch;
-        formObject.anOnOff = formData.anOnOff; 
+        formObject.anOnOff = 0; 
     };
 
     let getData = function() {

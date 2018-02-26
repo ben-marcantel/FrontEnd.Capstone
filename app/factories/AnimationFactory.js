@@ -45,6 +45,8 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 ////////////////////////ANIMATION OBJECT/////////////////
 
     let drawMovingObject = (data)=>{
+
+
         let dist = (x1, y1, x2, y2)=> {
             let xDist = x2 - x1;
             let yDist = y2 - y1;
@@ -68,12 +70,12 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             this.dy1 = dy1;
             this.radius = radius;
             this.dRadius = dRadius;
-            this.r = r;
-            this.dr= dr;
-            this.g = g;
-            this.dg= dg;
-            this.b = b;
-            this.db = db;
+            this.r =Math.floor((Math.random() * 255) +1);
+            this.dr= 1/4;
+            this.g = Math.floor((Math.random() * 255) +1);
+            this.dg= 1/4;
+            this.b = Math.floor((Math.random() * 255) +1);
+            this.db = 1/4;
             this.radians = radians;
             this.velocity = velocity;
             this.distOfCntr = {x:randNum(50,200), y:randNum(100,200)};
@@ -86,8 +88,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             let shapeChoose = (data)=>{
                 
                 if (data.shape === 0){
-                    c.lineWidth = data.radius;
-                    c.moveTo(lastPoint.x,lastPoint.y);
+                    c.moveTo(lastPoint.x+data.x,lastPoint.y+data.y);
                     c.lineTo(this.x,this.y);
                    
                 } else if (data.shape === 1){
@@ -95,13 +96,30 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     c.lineTo(this.x + data.y1, this.y + data.y1);
 
                 } else if (data.shape === 2){
-                    // c.lineTo((this.x * 4/4)/10, (this.y * 3/4)/10);
-                    // c.lineTo(this.x, this.y * 1/4);
-                    // c.fill();
-                } else {
                     c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
                     
-                }    
+
+                } else if (data.shape === 3){
+                    // c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
+                    c.translate(c.innerWidth/2,c.innerHeight/2);
+                    c.lineTo(Math.sin(this.radians)+this.x,Math.cos(this.radians)+this.y);
+                    // c.rotate((Math.sin(this.radians/2+this.x) * Math.PI)/ 180);
+                    c.lineTo(3*this.x+Math.sin(this.radians)*10,this.y+Math.sin(this.radians));
+                    // c.rotate((Math.sin(this.radians) * Math.PI)/ 180);
+                    c.lineTo(2*this.x1+Math.cos(this.radians)*10,this.y+Math.sin(this.radians/2));
+                    c.closePath();
+                    
+                }  else if (data.shape === 4){
+                    c.lineTo(this.x,this.y);
+                    c.save();
+                    c.lineTo(this.x+this.y1,this.y+this.y1);
+                    c.lineTo(this.x1,this.y1);
+                    c.lineTo(this.x1-this.y1,this.y1-this.y);
+                    c.arc(this.x, this.y, this.radians, 0, Math.PI * 2, false);
+                    c.lineTo(this.radians+this.x1,this.velocity+this.y);
+                    c.restore();
+                }  
+                
             };
 ////////TEXT///
             let textData = (data)=>{
@@ -138,17 +156,24 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
             this.draw = function(lastPoint,data){
                 c.beginPath();
+                c.translate(data.x1,data.y1);
+                
+                
+
                 shapeChoose(data);
                 textData(data);
                 c.strokeStyle='rgb(' + data.r +',' + data.g + ',' + data.b + ')';
                 fillOnOff(data);
                 blurOnOff(data);
-                c.setTransform((data.y2/100) ,(data.x2/100),(data.x2/100),(data.y2/100),(data.x/100),(data.y/100) );
-                c.rotate((data.y1 * Math.PI)/ 180);
+                
+                // c.scale(3/4,3/4);
+                // c.setTransform((data.y2/100) ,(data.x2/100),(data.x2/100),(data.y2/100),(data.x/100),(data.y/100) );
+                c.rotate((data.x2 * Math.PI)/ 180);
                 // c.skew(data.x2/100);
                 c.stroke();
                 };
-
+        
+                
 
             this.update = function(){
                 lastPoint = {x:this.x, y:this.y, x1:this.x1, y1:this.y1};
@@ -174,19 +199,51 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
 
                     
                 }  else if(data.path === 1){
-                    this.x = data.x + x + (Math.cos(this.radians)*150);
-                    this.y = data.y + y + (Math.sin(2*this.radians)*100);
+                    this.x = data.x+x + (Math.cos(2*this.radians)*150);
+                    this.y += data.y +this.dy; 
+                    this.x1 =  data.x + (Math.cos(this.radians)*150);
+                    this.y1 = data.y + y1 + (Math.sin(this.radians)*150);
+                }
+                
+                
+                
+                
+                
+                else if(data.path === 2){
+                    this.x = data.x+x+(Math.cos(this.radians)*150);
+                    this.y = data.y+y+(Math.sin(2*this.radians)*100);
                     this.x1 = y1+(Math.cos(this.radians))+(Math.cos(this.radians)* this.x);
-                    this.y1 = y1 +data.y +y + Math.sin(this.radians)*10+Math.sin
+                    this.y1 = y1+data.y + y + Math.sin(this.radians)*10+Math.sin
                     (this.radians*1/this.y1);
 
-                } else if(data.path === 2){
+                } else if(data.path === 3){
                     this.x = data.x;
                     this.y = data.y; 
                     this.x1 = data.x1;
                     this.y1 = data.y1;  
+
+                }else if(data.path ===4){
+
+                    this.x = x + Math.sin(this.radians/10) * 1 + Math.sin(this.radians/5)*1;   
+                    this.y = y + Math.cos(this.radians/10)+1;   
+                    this.x1 = x1 + Math.sin(this.radians /10)*2 + Math.cos(this.radians)*2;
+                    this.y1 = y1 + Math.cos(this.radians/20)* 2 + 2 + Math.cos(this.radians /12) * 2;  
+                    if (this.x + data.radius > 1080 || this.x - data.radius < 0) {
+                        this.dx = -this.dx;
+                    }   
+                    if (this.y + data.radius > 512 || this.y - data.radius < 0) {
+                        this.dy = -this.dy;
+                    }
+                    if (this.x1 + data.radius > 1080 || this.x1 - data.radius < 0) {
+                        this.dx1 = -this.dx1;
+                    }   
+                    if (this.y1 + data.radius > 512 || this.y1 - data.radius < 0) {
+                        this.dy1 = -this.dy1;
+                    }
                 }
-                 else if(data.path === 3){
+
+
+                 else if(data.path === 5){
                     this.x = x + Math.sin(this.radians)*100+Math.sin(this.radians*3)*10+ Math.sin(this.radians*4)+ data.x;
                     this.y = y + Math.cos(this.radians*4)*100+data.y+ Math.cos(this.radians*4); 
                     this.x1 = this.x;
@@ -194,7 +251,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 }
                 
                 /////////RANDOM
-                else if (data.path === 4){
+                else if (data.path === 6){
                     this.x += this.dx;
                     this.y += this.dy; 
                     this.x1 += this.dx1;
@@ -219,22 +276,27 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 this.b += this.db;
                 this.radius += this.dRadius;
                 this.draw(lastPoint, data);
-                
                 };
+                
+     
+                
             }
        let printArray;
-    let implement = ()=>{
+       let num = data.numObj;
+       
+    let implement = (num)=>{
          printArray = [];
+         console.log(num);
 
-        for(let i=0; i<3;i++){
+        for(let i=0; i<3+num;i++){
             let x =  (Math.floor (Math.random()*10)) + data.radius;
             let y =  (Math.floor (Math.random()*10)) + data.radius;
-            let x1 = (Math.floor (Math.random()*100)) + data.radius;
-            let y1 = (Math.floor (Math.random()*100)) + data.radius;
+            let x1 = (Math.floor (Math.random()*10)) + data.radius;
+            let y1 = (Math.floor (Math.random()*10)) + data.radius;
             let dx = 1;
             let dy = 1;
-            let dx1 = 1;
-            let dy1 = 1; 
+            let dx1 = 1/2;
+            let dy1 = 1/2; 
             let r = Math.floor((Math.random() * 255) +1);
             let g = Math.floor((Math.random() * 255) +1);
             let b = Math.floor((Math.random() * 255) +1);
@@ -245,7 +307,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             let dradius = 1;
             let radians = Math.random()*Math.PI*2;
             let velocity = 0.005;
-            printArray.push(new AnimaObj(x,y,x1,y1,dx,dy,radius,dRadius,r,dr,g,dg,b,db,radians,velocity));
+            printArray.push(new AnimaObj(x,y,x1,y1,dx,dy,dx1,dy1,radius,dRadius,r,dr,g,dg,b,db,radians,velocity));
         }   
     };
   
@@ -261,8 +323,9 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 c.fillStyle="rgba(0,0,0,0.05)";
             }
         };
-
-        function drawObj(){
+        
+        function drawObj(on){
+            
             id = window.requestAnimationFrame(drawObj);
             if (data.anOnOff === 0){
                 trailOnOff();
@@ -275,33 +338,137 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             }
 
 
-        implement();
+        implement(num);
         drawObj(data);
+        
+        // c.moveTo(data.x1,data.y1);
+        
     };
 
 ////////////ONLOAD
 
 
 
-let onload =(data)=> {
+let onload =()=> {
+    console.log("test");
     c = $document[0].getElementById("landing").getContext('2d');
+    let x;
+    let y;
+    let x1;
+    let y1;
+    let dx;
+    let dy;
+    let dx1;
+    let dy1;
+    let pos =[];
+    let radians;
+    let velocity;
+  
+
+    function HomeObj(x,y,x1,y1,dx,dy,dx1,dy1,pos,radians,velocity){
+        this.x= x;
+        this.y= y;
+        this.x1= x1;
+        this.y1= y1;
+        this.dx= dx;
+        this.dy= dy;
+        this.dx1= dx1;
+        this.dy1= dy1;
+        this.pos= pos;
+        this.radians= radians;
+        this.velocity= velocity;
+
+        this.draw = function(){
+            // c.save();
+            c.beginPath();
+            // c.translate (1+this.x,1+this.y+1);
+            c.lineTo(this.x,this.y);
+            // c.rotate((10 * Math.PI)/ 180);
+            c.lineTo(this.x+this.y1+5,this.y+this.y1);
+            c.closePath();
+            // c.rotate((4 * Math.PI)/ 180);
+            c.lineTo(this.x1+5,this.y1);
+            c.lineTo(this.x1-this.y1,this.y1-this.y);
+            c.closePath();
+            
+            // c.arc(this.x, this.y, this.radians, 0, Math.PI * 2, false);
+            c.lineTo(this.radians+this.x1,this.velocity+this.y);
+            // c.restore();
+            c.shadowColor = "rgba(255,0,154.0.5)";
+            c.strokeStyle="rgb(255,0,154)";
+            c.shadowBlur = 25;
+            
+            // c.font="40px Futura";
+            // c.strokeText("Java Lamp",this.x,this.y);
+            c.stroke();
+        };
+
+        this.update = function(){
+            pos.push(this.x);
+            pos.push(this.y);
+            this.x = x + (Math.cos(2*this.radians)*150);
+            this.y += this.dy; 
+            this.x1 = x + x1 + (Math.sin(this.radians)*150);
+            this.y1 += this.dy1;
+            this.radians += this.velocity;
+            if (this.x  > 520|| this.x  < 0) {
+                this.dx = -this.dx;
+            }   
+            if (this.y > 240|| this.y < 0) {
+                this.dy = -this.dy;
+            }
+            if (this.x1  > 520 || this.x1  < 0) {
+                this.dx1 = -this.dx1;
+            }   
+            if (this.y1 > 240 || this.y1 < 0) {
+                this.dy1 = -this.dy1;
+            }
+            this.draw();
+        };
+    }
+
+        let homeArray;
+        let implement = ()=>{
+            homeArray = [];
+            for(let i=0; i<3;i++){
+                let x =  10;
+                let y =  10;
+                let x1 = 5;
+                let y1 =  5;
+                let dx = 1;
+                let dy = 1;
+                let dx1 = 1/2;
+                let dy1 = 1/2 + Math.cos((x/10));
+                let pos = [];
+                let radians = Math.random()*Math.PI*2;
+                let velocity = 0.002;
+                homeArray.push(new HomeObj(x,y,x1,y1,dx,dy,dx1,dy1,pos,radians,velocity));
+            }   
+        };
+
+        function drawObj(){
+            window.requestAnimationFrame(drawObj);
+            c.translate(c.Width/2,c.Height/2);
+            c.clearRect(0,0,540,540);
+            c.fillRect(0,0,540,540);
+            c.translate(c.Width/2,c.Height/2);
+            c.fillStyle="rgba(0,0,0,0.05)";
+            // c.translate (-1,0);
+                for (let i=0;i<homeArray.length; i++){
+                    homeArray[i].update();
+                }
+            }
+       
+
+
+    implement();    
+    drawObj();
+    // c.scale(4/5,4/5);
+    c.translate(c.Width/2,c.Height/2);
     
-     for (var i = 0; i < 10; i++) {
-       for (var j = 0; j < 15; j++) {
-         c.save();
-         c.rotate((Math.PI / 180) * 10);
-         // c.fillStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
-         c.translate(50 + j * 50, 50 + i * 50);
-         c.fillRect(0, 0, 25 , 25);
-         c.strokeStyle = 'rgb(' + (51 * j) + ', ' + (255 - 51 * j) + ', 255)';
-         // c.font = "25px Futura";
-         // c.strokeText(data.paramImageText,10,10);
-         c.restore();
-         c.stroke();
-         // c.rotate((Math.PI / 180) * (data.x1/100));
-         // window.requestAnimationFrame(draw);
-         }
-     }
+
+    
+
  };
 
 
@@ -314,7 +481,7 @@ let onload =(data)=> {
 
 
 
-        return {drawMovingObject, onload};    
+        return {drawMovingObject,onload};    
 });
 
 
@@ -402,106 +569,9 @@ let onload =(data)=> {
 
     //     magic();
     // };
-    //////////////////// PARAMETRIC GROUP//////////////
-
-    // let drawParametric = (data)=>{
-        // let i;
-        // let t = data.x1;
-        // let lines  = data.y1;
-        // let x1 = function(t){
-        //     return Math.sin(t/10) * 100 + Math.sin(t /5)*100;
-        // };
-        // let y1 = function(t){
-        //     return Math.cos(t/10)+100;
-        // };
-        // let x2= function(t){
-        //     return Math.sin(t /10)*200 + Math.cos(t)*2;
-        //  };
-        // let y2 = function(t){
-        //     return Math.cos(t/20)* 200 + 200 + Math.cos(t /12) * 20;  
-        // };
-    
-        // /////////$scoped variables
-        // x += 0.25;
-        // y += 0.25;
-        
-
-        // /////////draw logic
-        // c.translate(1080/2, 512/2);
-        // c.fillRect(0, 0, 1080, 512);
-        // c.fillStyle='rgb(' + data.r +',' + data.g + ',' + data.b + ')';    
-        // // c.beginPath();
-        // for(let i =0; i<10;i++){
-        // c.arc(x1(t+i), y1(t+i), 10, 0, 2 * Math.PI, false);
-        // c.lineTo(x1(t+i), y1(t+i));
-        // c.lineTo(x2(t+i), y2(t+i));
-        // c.closePath();
-        // c.fill();
-        // }
-        // window.requestAnimationFrame(drawParametric);
-        
-    // };
-
-    // let squiggle = (data)=>{
   
-        // let w = 1080;
-        // let h = 512;
-        // let p = [];
-        // let clr;
-        // let n = data.x1;
-
-        // clr = [ 'red', 'green', 'blue', 'yellow', 'purple' ];
-
-        // for (let i=0; i<n; i++){
-        // // generate particle with random initial velocity, radius, and color
-        //     p.push({
-        //         x: w/2,
-        //         y: h/2,
-        //         vx: Math.random()*12-6,
-        //         vy: Math.random()*12-6,
-        //         r: Math.random()*4+3,
-        //         clr: Math.floor(Math.random()*clr.length)
-        //     });
-        // }
-
-        // function frame(data) {
-        //  // cover the canvas with 50% opacity (creates fading trails)
-        //     c.fillStyle = 'rgba(0,0,0,0.5)';
-        //     c.fillRect(0, 0, w, h);
-
-        //     for (var i = 0; i < n; i++) {
-        //     // reduce velocity to 99%
-        //         p[i].vx *= 0.99;
-        //         p[i].vy *= 0.99;
-
-        //     // adjust position by the current velocity
-        //         p[i].x += p[i].vx;
-        //         p[i].y += p[i].vy;
-
-
-        //         if (p[i].x < p[i].r || p[i].x > w-p[i].r) {
-        //             p[i].vx = -p[i].vx;
-        //             p[i].x += p[i].vx;
-        //     }
-           
-        //         if (p[i].y < p[i].r || p[i].y > h-p[i].r) {
-        //             p[i].vy = -p[i].vy;
-        //             p[i].y += p[i].vy;
-        //     }
-
-        //     // draw the circle at the new postion
-        //         c.fillStyle = clr[p[i].clr]; // set color
-        //         c.beginPath();
-        //         c.arc(p[i].x, p[i].y, p[i].r, 0, Math.PI*2, false);
-        //         c.fill();
-        //         c.strokeStyle = "red";
-        //         c.stroke();
-        //     }
- 
-
-        // }
+    
+        
 
        
-        // window.requestAnimationFrame(frame);
-    // };
 

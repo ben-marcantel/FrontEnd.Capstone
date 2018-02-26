@@ -33,7 +33,6 @@ angular.module("PseudoSceneApp")
                         $scope.loadParam();
                     });
                 }
-
             };
             
             // retrieve user form data
@@ -45,7 +44,6 @@ angular.module("PseudoSceneApp")
                 .catch((error) => {
                     console.log("You messed up bruh", error);
                 });
-
             };
 
             //helper function to scope recalled form data set to draw logic

@@ -1,6 +1,9 @@
+    <ul class="nav">
+        <li  ng-click= "galleryView()" ng-controller= "AnimateCtrl">to gallery</li>
+        <li ng-click= "homeView()" ng-controller= "AnimateCtrl">back to home</li>
+    </ul>
  <!-- ///from canvas html/// -->
 <div>
-   
     <ul class="topHalf">
         <li>
             <div class= "canvasCont">
@@ -13,78 +16,80 @@
     </ul>   
 <div >
 
-
+        <ul class="imageControls">
+                <li ng-click="animate()" ng-controller= "AnimateCtrl">Start</li>
+                <li ng-click="pause()" ng-controller= "AnimateCtrl">Pause</li>
+                <li ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear</li>
+                <li ng-click="downloadImg()" ng-controller= "AnimateCtrl">Save</li>
+            </ul>
 
 <!-- /////Original html///// -->
 
     <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
         <ul  class="dataSetsCont">
-                <li>
-                        <ul class="imageControls">
-                                <li ng-click="animate()" ng-controller= "AnimateCtrl">Image Animate</li>
-                                <li ng-click="clearImage()"  ng-controller= "AnimateCtrl">Image Clear</li>
-                                <li ng-click="downloadImg()" ng-controller= "AnimateCtrl">Image Save</li>
-                                <li  ng-click="galleryView()" ng-controller= "AnimateCtrl">Image Gallery View</li>
-                            </ul>
-                </li>
+                <!-- <li>
+                        
+                </li> -->
             <li>
                     <ul class ="formInputs">
                             <li class=group1>
                                 <ul class= "subgroup1">
                                     
-                                    <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name"></li>
+                                    <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name" value="innerText"class="textInput"></li>
             
-                                    <li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)"></li>
+                                    <li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)" value="innerText" class="textInput"></li>
 
-                                    <li>animationOnOff<input type= "range"  ng-model= "formData.anOnOff" ng-change= "submitData(formData)" min= "0"  max= "1"></li>
+                                    <!-- <li>animationOnOff<input type= "range"  ng-model= "formData.anOnOff" ng-change= "submitData(formData)" min= "0"  max= "1" class="slider"></li> -->
             
-                                    <li>trail on<input type= "range"  ng-model= "formData.switch" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+                                    <li>trail on<input type= "range"  ng-model= "formData.switch" ng-change= "submitData(formData)" min= "0"  max= "2" class="slider"></li>
             
-                                    <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "1"  max= "15"></li>
+                                    <li>number of objects<input type= "range"  ng-model= "formData.numObj" ng-change= "submitData(formData)" min= "0"  max= "5" class="slider"></li>
                                 </ul>
                             </li>
                             <li class ="group1">
                                <ul class= "subgroup1">
-                                    <li>shape type<input type= "range"  ng-model= "formData.shape" ng-change= "submitData(formData)" min= "0"  max= "3"></li> 
+                                    <li>shape type<input type= "range"  ng-model= "formData.shape" ng-change= "submitData(formData)" min= "0"  max= "4" class="slider"></li> 
             
-                                    <li>shape path<input type= "range"  ng-model= "formData.path" ng-change= "submitData(formData)" min= "0"  max= "4"></li> 
+                                    <li>shape path<input type= "range"  ng-model= "formData.path" ng-change= "submitData(formData)" min= "0"  max= "6" class="slider"></li> 
             
-                                    <li>shape size<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "1"  max= "500"></li> 
+                                    <li>shape size<input type= "range" ng-model= "formData.radius" ng-change= "submitData(formData)" min= "1"  max= "500" class="slider"></li> 
             
                                     <li>left or right 
-                                    <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "-1080"  max= "1080"></li>  
+                                    <input type= "range"  ng-model= "formData.x" ng-change= "submitData(formData)" min= "0"  max= "100" class="slider"></li>  
                     
-                                    <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "-512"  max= "512"></li> 
+                                    <li>up or down <input type= "range"  ng-model= "formData.y" ng-change= "submitData(formData)" min= "-512"  max= "512" class="slider"></li> 
                                </ul>
                             </li>
                             <li class="group1">
                                 <ul class= "subgroup1">
-                                    <li>color mode<input type= "range"  ng-model= "formData.fillSw" ng-change= "submitData(formData)" min= "0"  max= "2"></li>
+                                    <li>color mode<input type= "range"  ng-model= "formData.fillSw" ng-change= "submitData(formData)" min= "0"  max= "2" class="slider"></li>
             
-                                    <li>red level<input type= "range"  ng-model= "formData.r" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                                    <li>red level<input type= "range"  ng-model= "formData.r" ng-change= "submitData(formData)" min= "0"  max= "255" class="slider"></li>
             
-                                    <li>green level<input type= "range"  ng-model= "formData.g" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                                    <li>green level<input type= "range"  ng-model= "formData.g" ng-change= "submitData(formData)" min= "0"  max= "255" class="slider"></li>
                     
-                                    <li>blue level<input type= "range"  ng-model= "formData.b" ng-change= "submitData(formData)" min= "0"  max= "255"></li>
+                                    <li>blue level<input type= "range"  ng-model= "formData.b" ng-change= "submitData(formData)" min= "0"  max= "255" class="slider"></li>
                     
-                                    <li> blur on off <input type= "range"  ng-model= "formData.blur" ng-change= "submitData(formData)" min= "0"  max= "1"></li> 
+                                    <li> blur on off <input type= "range"  ng-model= "formData.blur" ng-change= "submitData(formData)" min= "0"  max= "1" class="slider"></li> 
                     
-                                    <li> blur transparency <input type= "range"  ng-model= "formData.blurAmt" ng-change= "submitData(formData)" min= "0"  max= "100"></li> 
+                                    <li> blur transparency <input type= "range"  ng-model= "formData.blurAmt" ng-change= "submitData(formData)" min= "0"  max= "100" class="slider"></li> 
                                 </ul>
                             </li>
                             <li class="group1">
                                 <ul class= "subgroup1">
 
-                                    <li>speed <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "1"  max= "100"></li> 
+                                    <li>speed <input type= "range"  ng-model= "formData.v" ng-change= "submitData(formData)" min= "-10"  max= "10" class="slider"></li> 
 
-                                    <li>translate<input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "-100"  max= "100"></li>   
+                                    <li>move left right<input type= "range"  ng-model= "formData.x1" ng-change= "submitData(formData)" min= "-1"  max= "1" class="slider"></li>  
 
-                                    <li>rotate<input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "-100"  max= "100"></li> 
-
-                                    <li>scale<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "-100"  max= "100"></li> 
-
-                                    <li>skew<input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "-100"  max= "100"></li> 
+                                    <li>move up down<input type= "range"  ng-model= "formData.y1" ng-change= "submitData(formData)" min= "-1"  max= "1" class="slider"></li> 
             
+
+                                    <li>rotate<input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "-4"  max= "4" class="slider"></li> 
+
+                                    <li>scale<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "-4"  max= "4" class="slider"></li> 
+
+                                    
                                     
             
                                       
@@ -97,10 +102,11 @@
             <li>
                     <div class ="paramDiv">
                             <div class="savedParameterView">
-                                    <ul class="parameterHeader">Parameter Sets
-                                        <li ng-click="save()">:  Save  </li>
-                                        <li ng-click="loadParam()">,  Load  </li>
-                                        <li ng-click="exitParamEdit()">,  Exit  </li>
+                                <div class="paramHeadLine">Parameter Sets</div>
+                                    <ul class="parameterHeader">
+                                        <li ng-click="save()"> Save  </li>
+                                        <li ng-click="loadParam()">  Load  </li>
+                                        <li ng-click="exitParamEdit()"> Exit  </li>
                                     </ul>
                             </div>
                                 <ul class= "paramCollection">

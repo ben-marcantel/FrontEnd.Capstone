@@ -3,27 +3,35 @@
 
 angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFactory, $location, $window, AnimationFactory, DataFactory) {
 
-    $scope.onloadAnime=()=>{
-        AnimationFactory.onload()
-    };
+    // $scope.onloadAnime=()=>{
+    //     AnimationFactory.onload();
+    // };
 
-
+    let display = [];
     $scope.get1stImage=()=>{
         DataFactory.getImage()
         .then((images)=>{
+            console.log(images);
         images.forEach(image => {
-                if(image.public === true){
-                    
+                if(image.public === "yes"){
+                    display.push(image);
+                    $scope.onLoadImages = display;
                 }else{
 
-                };
+                }
             });
         });
 
-    }
+    };
 
 
 
+    $scope.seeGallery = ()=>{
+        $scope.get1stImage();
+    };
+
+
+    
 
     $scope.loginInput = [
         {
@@ -49,13 +57,29 @@ angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFa
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             $scope.$apply($scope.loggedIn = true);
+
+            $scope.toGallery = ()=>{
+                $location.url("/images");
+            };
+
+
+            $scope.toScene = ()=>{
+                $location.url("/scene");
+            };
+
         } else {
             $scope.loggedIn = false;
             $scope.$apply();
         }
+
+
+
+        
     });
     
-
-    $scope.onloadAnime();
+    $window.onload = function(){
+        $scope.get1stImage();
+    };
+    // $scope.onloadAnime();
 
 });

@@ -22,9 +22,15 @@ angular.module("PseudoSceneApp")
                 DataFactory.getImage()
                 .then((images)=>{
                     $scope.images = images;
-                    $scope.formData = images;
+                    console.log(images);
+                    // $scope.formData = images;
                 });
             };
+
+            $scope.bandAid= ()=>{
+                $scope.collection();
+            };
+            
            
             
             $scope.back = ()=>{
@@ -55,7 +61,7 @@ angular.module("PseudoSceneApp")
             };
 
 
-        $scope.collection();
+        
 
         }
     });

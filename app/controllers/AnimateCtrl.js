@@ -54,13 +54,25 @@ angular.module("PseudoSceneApp")
 
     $scope.animate = ()=>{
         $scope.formExe();
+        dataFromGetter.anOnOff = 0;
         AnimationFactory.drawMovingObject(dataFromGetter);
     };
-   
+
+    $scope.pause=()=>{
+        $scope.formExe();
+        dataFromGetter.anOnOff = 1;
+        AnimationFactory.drawMovingObject(dataFromGetter);
+    };
+    
+ /////////NAV/////////////////  
     $scope.galleryView = ()=>{
+        // $window.location = "/#!/images";
         $location.url("/images");
     };
 
+    $scope.homeView = ()=>{
+        $location.url("/");
+    };
 
         }
     });

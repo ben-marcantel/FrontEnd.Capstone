@@ -1,25 +1,26 @@
 <div class="backBtn" ng-click=back()>back to image editor</div>
+<div ng-click= bandAid()>yo</div>
 <div class="gallery">
     <div ng-repeat= "image in images">
 
     
             <ul class= "imgSet">
                 <li>
-                    <img src= "{{image.data}}" id="{{image.imageId}}" alt="just a minute"> 
+                    <img src= "{{image.data}}" id="{{image.imageId}}" > 
                 </li>
 
 
                 <li>
                     <form name= "imageForm" ng-submit= "submit(formData,image)" ng-controller="ImageCtrl">
                         <ul class="imgForm">
-                               <li>{{image.name}}</li> 
+                               <li class="imgTitle">{{image.name}}</li> 
                             <li ng-click= "delete(image.imageId)">delete from collection</li>
 
                             <li ng-click = "submit(formData,image)">update</li>
 
-                            <li><input type= "text" ng-model="formData.name" ng-click = "submit(formData)"  placeholder = "Enter Image Title"></li>
+                            <li><input type= "text" ng-model="formData.name" ng-click = "submit(formData)"  placeholder = "Enter Image Title" class="textInput"></li>
                             
-                            <li>make public<input type= "checkbox"  ng-model= "formData.public" ng-click= "submit(formData)" ng-true-value=" 'yes' " ng-false-value =" 'no' "></li>
+                            <li>make public<input type= "checkbox"  ng-model= "formData.public" ng-click= "submit(formData)" ng-true-value=" 'yes' " ng-false-value =" 'no' " class="checkbox"></li>
                             {{image.public}}
                         </ul> 
                     </form> 

@@ -90,10 +90,9 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
    }
 
    function getImage(){
-   
-        return $q((resolve, reject)=>{
+         return $q((resolve, reject)=>{
             $http
-            .get(`https://frontendcapstone-fe0b1.firebaseio.com/Images.json?orderBy="uid"&  equalTo="${firebase.auth().currentUser.uid}"`)
+            .get(`../app/data/frontendcapstone-fe0b1-export.json`)
             .then((images) => {
                 let keys = Object.keys(images.data);
                 keys.forEach(key => {
@@ -106,6 +105,22 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
                 reject(error);
             });
         });
+   
+        // return $q((resolve, reject)=>{
+        //     $http
+        //     .get(`https://frontendcapstone-fe0b1.firebaseio.com/Images.json?orderBy="uid"&  equalTo="${firebase.auth().currentUser.uid}"`)
+        //     .then((images) => {
+        //         let keys = Object.keys(images.data);
+        //         keys.forEach(key => {
+        //             images.data[key].imageId = key;
+        //         });
+        //         let imageArr = Object.values(images.data);
+        //         resolve(imageArr);
+        //     })
+        //     .catch((error) => {
+        //         reject(error);
+        //     });
+        // });
     }
 
 
