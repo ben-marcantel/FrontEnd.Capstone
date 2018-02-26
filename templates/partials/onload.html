@@ -1,29 +1,31 @@
-    <ul class="nav">
-        <li  ng-click= "galleryView()" ng-controller= "AnimateCtrl">to gallery</li>
-        <li ng-click= "homeView()" ng-controller= "AnimateCtrl">back to home</li>
-    </ul>
- <!-- ///from canvas html/// -->
-<div>
+<div ng-controller= "AnimateCtrl">
+<ul class="nav">
+        <li ng-click= "homeView()">back to home</li>
+        <li  ng-click= "galleryView()">to gallery</li>  
+    </ul> 
+
+ <div>
     <ul class="topHalf">
         <li>
             <div class= "canvasCont">
                 <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1080"></canvas>    
             </div>
         </li>
-        <li >
-          
-        </li>
     </ul>   
 <div >
 
-        <ul class="imageControls">
-                <li ng-click="animate()" ng-controller= "AnimateCtrl">Start</li>
-                <li ng-click="pause()" ng-controller= "AnimateCtrl">Pause</li>
-                <li ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear</li>
-                <li ng-click="downloadImg()" ng-controller= "AnimateCtrl">Save</li>
-            </ul>
 
-<!-- /////Original html///// -->
+        <!-- <div ng-include src="'templates/partials/canvas.html' "></div> -->
+
+
+        <ul class="imageControls">
+                <li ng-click="animate()">Start</li>
+                <li ng-click="pause()">Pause</li>
+                <li ng-click="clearImage()">Clear</li>
+                <li ng-click="downloadImg()">Save</li>
+        </ul>
+
+</div>
 
     <form name= "paramForm" ng-submit= "submitData(formData)" ng-controller= "SceneCtrl">
         <ul  class="dataSetsCont">
@@ -38,8 +40,6 @@
                                     <li><input type= "text"  ng-model="formData.paramName" placeholder = "Enter Parameter Name" value="innerText"class="textInput"></li>
             
                                     <li><input type= "text"  ng-model="formData.paramImageText" placeholder = "Enter Image Text" ng-change= "submitData(formData)" value="innerText" class="textInput"></li>
-
-                                    <!-- <li>animationOnOff<input type= "range"  ng-model= "formData.anOnOff" ng-change= "submitData(formData)" min= "0"  max= "1" class="slider"></li> -->
             
                                     <li>trail on<input type= "range"  ng-model= "formData.switch" ng-change= "submitData(formData)" min= "0"  max= "2" class="slider"></li>
             
@@ -87,14 +87,7 @@
 
                                     <li>rotate<input type= "range"  ng-model= "formData.x2" ng-change= "submitData(formData)" min= "-4"  max= "4" class="slider"></li> 
 
-                                    <li>scale<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "-4"  max= "4" class="slider"></li> 
-
-                                    
-                                    
-            
-                                      
-                                    
-            
+                                    <li>scale<input type= "range"  ng-model= "formData.y2" ng-change= "submitData(formData)" min= "-4"  max= "4" class="slider"></li>       
                                  </ul>
                             </li>
                         </ul>

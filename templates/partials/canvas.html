@@ -1,18 +1,40 @@
-
-<!-- /////TO DO ng-show -->
 <!-- 
-<div class= "canvasCont">
-        <canvas id= "canvas1"  ng-controller="AnimateCtrl" height = "512" width ="1080"></canvas>    
-</div>
+        <ul class="nav" ng-controller= "AnimateCtrl">
+                <li ng-click= "homeView()" >back to home</li>
+                <li  ng-click= "galleryView()">to gallery</li>  
+        </ul> 
+         <div>
+            <ul class="topHalf">
+                <li>
+                    <div class= "canvasCont">
+                        <canvas id= "canvas1" height = "512" width ="1080"></canvas>    
+                    </div>
+                </li>
+            </ul>   
+        <div >
+
+
+                        <ul class="imageControls">
+                                <li ng-click="animate()">Start</li>
+                                <li ng-click="pause()">Pause</li>
+                                <li ng-click="clearImage()">Clear</li>
+                                <li ng-click="downloadImg()">Save</li>
+                        </ul> -->
+
+<!--  
+<div class= "canvasCont" ng-controller="AnimateCtrl"> 
+        <canvas id= "canvas1"   height = "512" width ="1080"></canvas>    
+
 <div class="imageControls">
 
-<div ng-click="clearImage()"  ng-controller= "AnimateCtrl">Clear Image</div>
+<div ng-click="clearImage()">Clear Image</div>
 
-<div ng-click="downloadImg()" ng-controller= "AnimateCtrl">Download Image</div>
+<div ng-click="downloadImg()">Download Image</div>
 </div>
 
 <ul class ="imageType">Please select Image Type:
-        <li ng-click="static()" ng-controller= "AnimateCtrl">Static Image</li>
-        <li ng-click="animate()" ng-controller= "AnimateCtrl">Animate Image</li>
+        <li ng-click="static()">Static Image</li>
+        <li ng-click="animate()">Animate Image</li>
 </ul>
-<div ng-click="galleryView()" ng-controller= "AnimateCtrl">Image Gallery View</div> -->
+<div ng-click="galleryView()">Image Gallery View</div> 
+</div> -->

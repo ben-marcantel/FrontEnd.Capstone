@@ -37,9 +37,11 @@ angular.module("PseudoSceneApp")
             
             // retrieve user form data
             $scope.loadParam = ()=>{
+                console.log("ok");
                 DataFactory.getParameters()
                 .then((params) => {
                     $scope.params = params; 
+                    $scope.initSavedParam();
                 })
                 .catch((error) => {
                     console.log("You messed up bruh", error);
@@ -62,7 +64,6 @@ angular.module("PseudoSceneApp")
             //exit parameter
             $scope.exitParamEdit = ()=>{
                 $route.reload("/scene");
-                // $scope.loadParam();
             };
 
           

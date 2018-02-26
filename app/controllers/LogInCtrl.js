@@ -3,15 +3,10 @@
 
 angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFactory, $location, $window, AnimationFactory, DataFactory) {
 
-    // $scope.onloadAnime=()=>{
-    //     AnimationFactory.onload();
-    // };
-
     let display = [];
     $scope.get1stImage=()=>{
         DataFactory.getImage()
         .then((images)=>{
-            console.log(images);
         images.forEach(image => {
                 if(image.public === "yes"){
                     display.push(image);
@@ -23,15 +18,10 @@ angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFa
         });
 
     };
-
-
-
+    
     $scope.seeGallery = ()=>{
         $scope.get1stImage();
     };
-
-
-    
 
     $scope.loginInput = [
         {
@@ -62,7 +52,6 @@ angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFa
                 $location.url("/images");
             };
 
-
             $scope.toScene = ()=>{
                 $location.url("/scene");
             };
@@ -71,15 +60,6 @@ angular.module("PseudoSceneApp").controller("LogInCtrl", function($scope, AuthFa
             $scope.loggedIn = false;
             $scope.$apply();
         }
-
-
-
-        
+ 
     });
-    
-    $window.onload = function(){
-        $scope.get1stImage();
-    };
-    // $scope.onloadAnime();
-
 });

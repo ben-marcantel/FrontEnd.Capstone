@@ -15,23 +15,17 @@ angular.module("PseudoSceneApp")
                 public: null,
                 uid: null
             };
-           
-
 
             $scope.collection=()=>{
                 DataFactory.getImage()
                 .then((images)=>{
                     $scope.images = images;
-                    console.log(images);
-                    // $scope.formData = images;
                 });
             };
 
-            $scope.bandAid= ()=>{
-                $scope.collection();
+            $scope.homeView = ()=>{
+                $location.url("/");
             };
-            
-           
             
             $scope.back = ()=>{
                 $location.url("/scene");
@@ -60,8 +54,7 @@ angular.module("PseudoSceneApp")
                 $scope.update(newObj.imageId,newObj);
             };
 
-
-        
+            $scope.collection();
 
         }
     });

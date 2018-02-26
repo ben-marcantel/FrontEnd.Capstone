@@ -66,7 +66,6 @@ angular.module("PseudoSceneApp")
     
  /////////NAV/////////////////  
     $scope.galleryView = ()=>{
-        // $window.location = "/#!/images";
         $location.url("/images");
     };
 

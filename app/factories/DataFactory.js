@@ -24,7 +24,7 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
     function getParameters() {
         return $q((resolve, reject) => {
             $http
-                .get(`https://frontendcapstone-fe0b1.firebaseio.com/Users.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+                .get(`../app/data/paramter.json`)
                 .then((params) => {
                     let keys = Object.keys(params.data);
                     keys.forEach(key => {
@@ -37,6 +37,21 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
                     reject(error);
                 });
         });
+        // return $q((resolve, reject) => {
+        //     $http
+        //         .get(`https://frontendcapstone-fe0b1.firebaseio.com/Users.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+        //         .then((params) => {
+        //             let keys = Object.keys(params.data);
+        //             keys.forEach(key => {
+        //                 params.data[key].paramsId = key;
+        //             });
+        //             let paramsDataArr = Object.values(params.data);
+        //             resolve(paramsDataArr);
+        //         })
+        //         .catch((error) => {
+        //             reject(error);
+        //         });
+        // });
     }
 
     //update parameter in database
@@ -90,6 +105,8 @@ angular.module("PseudoSceneApp").factory("DataFactory", ($http, $q)=>{
    }
 
    function getImage(){
+       ////JSON////
+       console.log("yep");
          return $q((resolve, reject)=>{
             $http
             .get(`../app/data/frontendcapstone-fe0b1-export.json`)

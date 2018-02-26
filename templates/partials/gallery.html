@@ -1,17 +1,18 @@
-<div class="backBtn" ng-click=back()>back to image editor</div>
-<div ng-click= bandAid()>yo</div>
-<div class="gallery">
-    <div ng-repeat= "image in images">
-
-    
+<!-- <div ng-controller="ImageCtrl"> -->
+    <ul class="backBtn"> 
+        <li ng-click=back()>back to image editor</li>
+        <li ng-click= "homeView()">back to home</li>
+        <!-- <li ng-click="collection()">wtf</li> -->
+    </ul>
+    <div class="gallery">
+        <div ng-repeat= "image in images">
             <ul class= "imgSet">
                 <li>
-                    <img src= "{{image.data}}" id="{{image.imageId}}" > 
+                    <img ng-src= "{{image.data}}" ng-id="{{image.imageId}}" > 
                 </li>
 
-
                 <li>
-                    <form name= "imageForm" ng-submit= "submit(formData,image)" ng-controller="ImageCtrl">
+                    <form name= "imageForm" ng-submit= "submit(formData,image)">
                         <ul class="imgForm">
                                <li class="imgTitle">{{image.name}}</li> 
                             <li ng-click= "delete(image.imageId)">delete from collection</li>
@@ -26,5 +27,6 @@
                     </form> 
                 </li>
             </ul>
+        </div>
     </div>
-</div>
+<!-- </div> -->

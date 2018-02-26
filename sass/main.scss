@@ -10,11 +10,22 @@ body {
 ///////////LANDING
 
 .welcome{
+    padding-top: 4%;
+    text-align: center;
     font-size: 3em;
+    margin:0;
 };
 
 
 .login{
+    text-align: center;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+}
+.login ul{
+    justify-content: center;
+    text-align: center;
     display: flex;
     list-style: none;
 }
@@ -31,6 +42,17 @@ body {
 .views{
     list-style: none;
     display:flex;
+    margin: 0;
+    justify-content: center;
+}
+
+.homeNav{
+    border-radius: 15px;
+    background-color: rgba(58, 87, 255, 0.445);
+}
+.homeNav:hover{
+    background-color: rgba(119, 140, 255, 0.445);
+    transition: background-color 1s;
 }
 .homeNav li:hover {
     text-align: center;
@@ -40,11 +62,12 @@ body {
 .gallery2{
     margin: none;
     border-radius: 15px;
+    
     // background-color: rgba(187, 183, 241, 0.397);
     // transition: background-color 3s;
     // display: flex;
     height: 18em;
-    width: 36em;
+    width: 45em;
     overflow: scroll;
 }
 
@@ -62,6 +85,7 @@ body {
 background-color: rgba(119, 140, 255, 0.445);
     transition: background-color 1s;
 }
+
 
 .nav li:hover {
     color: rgb(187, 183, 241);
@@ -239,6 +263,7 @@ input[type=text]:hover {
 }
 
 .paramHeadLine{
+    border-radius: 15px;
     text-align: center;
     background-color: rgba(119, 140, 255, 0.445);
    
@@ -259,6 +284,7 @@ input[type=text]:hover {
 /////////////GALLERY//////
 
 .backBtn{
+    list-style: none;
     display: flex;
     justify-content: space-evenly;
     border-radius: 15px;
@@ -290,7 +316,6 @@ input[type=text]:hover {
 .gallery:hover{
     background-color: rgba(187, 183, 241, 0.397);
     transition: background-color 4s;
-    background-image: url("../images/bg2.png");
     
     // display: flex;
     // height: 35em;
@@ -305,6 +330,8 @@ input[type=text]:hover {
 
 .imgSet{
     list-style: none;
+    margin: 0px;
+    padding: 0px;
 }
 
 .imgForm {

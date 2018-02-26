@@ -1,20 +1,15 @@
-<div ng-controller="LogInCtrl" >
-        <div class = "welcome">WELCOME TO JAVA LAMP</div>
+<!-- <div ng-controller="LogInCtrl" > -->
+    <div class = "welcome">WELCOME TO JAVA LAMP</div>
         <ul class="views">
             <li>
-                    <div class="gallery2">
+                    <div class="gallery2" ng-init= "seeGallery()">
                             <ul ng-repeat= "onLoadImage  in onLoadImages" class= "imgSet">
-                                <img src= "{{onLoadImage.data}}" id="{{image.imageId}}"> 
+                                <img ng-src= "{{onLoadImage.data}}" id="{{image.imageId}}"> 
                             </ul>
                     </div> 
             </li>
-            <!-- <li>
-                    <canvas id= "landing"  ng-controller="LogInCtrl" height = "240" width ="520"></canvas> 
-            </li> -->
         </ul>
    
-  
-    
     <ul class="homeNav">
         <li ng-click="toScene()">to image editor</li>
         <li ng-click="toGallery()">to my images</li> 
@@ -25,4 +20,4 @@
             <a ng-show="{{item.bang}}loggedIn" href="#" ng-click="logInAuth(item.name)">{{item.name}}</a>
         </li>
     </ul>
-</div>
+<!-- </div> -->
