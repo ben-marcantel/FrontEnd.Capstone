@@ -4,7 +4,6 @@
 angular.module("PseudoSceneApp")
 .controller("ImageCtrl", function($scope, $routeParams, $location, $route, $window, AuthFactory, DataFactory){
     
- 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             
@@ -39,7 +38,6 @@ angular.module("PseudoSceneApp")
             };
 
             $scope.delete = (imageId)=>{
-                // console.log(imageId);
                 DataFactory.deleteImage(imageId)
                 .then(()=>{
                     $route.reload("/images");

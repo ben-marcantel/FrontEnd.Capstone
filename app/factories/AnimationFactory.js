@@ -47,15 +47,6 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
     let drawMovingObject = (data)=>{
 
 
-        let dist = (x1, y1, x2, y2)=> {
-            let xDist = x2 - x1;
-            let yDist = y2 - y1;
-            return Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-        };
-
-        let randNum = (min, max)=> {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        };
    
      c = $document[0].getElementById("canvas1").getContext('2d');
 
@@ -78,7 +69,6 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             this.db = 1/4;
             this.radians = radians;
             this.velocity = velocity;
-            this.distOfCntr = {x:randNum(50,200), y:randNum(100,200)};
         
 /////////DRAW HELPER FUNCTIONS/////
 
@@ -96,28 +86,22 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     c.lineTo(this.x + data.y1, this.y + data.y1);
 
                 } else if (data.shape === 2){
-                    c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
+                    c.lineTo(this.x+data.x, this.y+data.y);
+                    
+                    c.moveTo(this.x+3*this.y, this.y+4*this.x);
+                    c.lineTo(Math.sin(this.radians)+20, this.y);
+                    c.closePath();
                     
 
                 } else if (data.shape === 3){
-                    // c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
-                    c.translate(c.innerWidth/2,c.innerHeight/2);
-                    c.lineTo(Math.sin(this.radians)+this.x,Math.cos(this.radians)+this.y);
-                    // c.rotate((Math.sin(this.radians/2+this.x) * Math.PI)/ 180);
-                    c.lineTo(3*this.x+Math.sin(this.radians)*10,this.y+Math.sin(this.radians));
-                    // c.rotate((Math.sin(this.radians) * Math.PI)/ 180);
-                    c.lineTo(2*this.x1+Math.cos(this.radians)*10,this.y+Math.sin(this.radians/2));
-                    c.closePath();
+                    c.arc(this.x + data.x, this.y + data.y, data.radius, 0, Math.PI * 2, false);
+                  
                     
                 }  else if (data.shape === 4){
-                    c.lineTo(this.x,this.y);
-                    c.save();
-                    c.lineTo(this.x+this.y1,this.y+this.y1);
-                    c.lineTo(this.x1,this.y1);
-                    c.lineTo(this.x1-this.y1,this.y1-this.y);
-                    c.arc(this.x, this.y, this.radians, 0, Math.PI * 2, false);
-                    c.lineTo(this.radians+this.x1,this.velocity+this.y);
-                    c.restore();
+                    c.moveTo(75+this.x+data.x, 50+this.y+data.y+data.radius/10);
+                    c.lineTo(100+this.x+data.radius+data.x, 75+this.y+data.radius+data.y);
+                    c.lineTo(100+this.x+data.radius+data.x, 25+this.y+data.radius+data.y);
+                    c.closePath();
                 }  
                 
             };
@@ -157,24 +141,15 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
             this.draw = function(lastPoint,data){
                 c.beginPath();
                 c.translate(data.x1,data.y1);
-                
-                
-
                 shapeChoose(data);
                 textData(data);
                 c.strokeStyle='rgb(' + data.r +',' + data.g + ',' + data.b + ')';
                 fillOnOff(data);
                 blurOnOff(data);
-                
-                // c.scale(3/4,3/4);
-                // c.setTransform((data.y2/100) ,(data.x2/100),(data.x2/100),(data.y2/100),(data.x/100),(data.y/100) );
                 c.rotate((data.x2 * Math.PI)/ 180);
-                // c.skew(data.x2/100);
                 c.stroke();
                 };
         
-                
-
             this.update = function(){
                 lastPoint = {x:this.x, y:this.y, x1:this.x1, y1:this.y1};
                 
@@ -197,19 +172,13 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     this.x = data.x + x + (Math.cos(this.radians) * this.distOfCntr.x);
                     this.y =  data.y + y + (Math.sin(this.radians)*this.distOfCntr.y);
 
-                    
                 }  else if(data.path === 1){
                     this.x = data.x+x + (Math.cos(2*this.radians)*150);
                     this.y += data.y +this.dy; 
                     this.x1 =  data.x + (Math.cos(this.radians)*150);
                     this.y1 = data.y + y1 + (Math.sin(this.radians)*150);
-                }
-                
-                
-                
-                
-                
-                else if(data.path === 2){
+
+                } else if(data.path === 2){
                     this.x = data.x+x+(Math.cos(this.radians)*150);
                     this.y = data.y+y+(Math.sin(2*this.radians)*100);
                     this.x1 = y1+(Math.cos(this.radians))+(Math.cos(this.radians)* this.x);
@@ -222,12 +191,12 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                     this.x1 = data.x1;
                     this.y1 = data.y1;  
 
-                }else if(data.path ===4){
+                }else if(data.path === 6){
 
-                    this.x = x + Math.sin(this.radians/10) * 1 + Math.sin(this.radians/5)*1;   
-                    this.y = y + Math.cos(this.radians/10)+1;   
-                    this.x1 = x1 + Math.sin(this.radians /10)*2 + Math.cos(this.radians)*2;
-                    this.y1 = y1 + Math.cos(this.radians/20)* 2 + 2 + Math.cos(this.radians /12) * 2;  
+                    this.x = x + Math.sin(this.radians) * 1 + Math.sin(this.radians/5)*1;   
+                    this.y = y + Math.cos(this.radians)+10;   
+                    this.x1 = x1 + Math.sin(this.radians)*20 + Math.cos(this.radians)*2;
+                    this.y1 = y1 + Math.cos(this.radians)* 2 + 20 + Math.cos(this.radians) * 2;  
                     if (this.x + data.radius > 1080 || this.x - data.radius < 0) {
                         this.dx = -this.dx;
                     }   
@@ -251,7 +220,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 }
                 
                 /////////RANDOM
-                else if (data.path === 6){
+                else if (data.path === 4){
                     this.x += this.dx;
                     this.y += this.dy; 
                     this.x1 += this.dx1;
@@ -276,11 +245,9 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
                 this.b += this.db;
                 this.radius += this.dRadius;
                 this.draw(lastPoint, data);
-                };
-                
-     
-                
+                };    
             }
+            
        let printArray;
        let num = data.numObj;
        
@@ -288,7 +255,7 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
          printArray = [];
          console.log(num);
 
-        for(let i=0; i<3+num;i++){
+        for(let i=0; i<3;i++){
             let x =  (Math.floor (Math.random()*10)) + data.radius;
             let y =  (Math.floor (Math.random()*10)) + data.radius;
             let x1 = (Math.floor (Math.random()*10)) + data.radius;
@@ -341,235 +308,16 @@ angular.module("PseudoSceneApp").factory("AnimationFactory", function($window, $
         implement(num);
         drawObj(data);
         
-        // c.moveTo(data.x1,data.y1);
         
     };
 
-////////////ONLOAD
-
-
-
-let onload =()=> {
-    console.log("test");
-    c = $document[0].getElementById("landing").getContext('2d');
-    let x;
-    let y;
-    let x1;
-    let y1;
-    let dx;
-    let dy;
-    let dx1;
-    let dy1;
-    let pos =[];
-    let radians;
-    let velocity;
-  
-
-    function HomeObj(x,y,x1,y1,dx,dy,dx1,dy1,pos,radians,velocity){
-        this.x= x;
-        this.y= y;
-        this.x1= x1;
-        this.y1= y1;
-        this.dx= dx;
-        this.dy= dy;
-        this.dx1= dx1;
-        this.dy1= dy1;
-        this.pos= pos;
-        this.radians= radians;
-        this.velocity= velocity;
-
-        this.draw = function(){
-            // c.save();
-            c.beginPath();
-            // c.translate (1+this.x,1+this.y+1);
-            c.lineTo(this.x,this.y);
-            // c.rotate((10 * Math.PI)/ 180);
-            c.lineTo(this.x+this.y1+5,this.y+this.y1);
-            c.closePath();
-            // c.rotate((4 * Math.PI)/ 180);
-            c.lineTo(this.x1+5,this.y1);
-            c.lineTo(this.x1-this.y1,this.y1-this.y);
-            c.closePath();
-            
-            // c.arc(this.x, this.y, this.radians, 0, Math.PI * 2, false);
-            c.lineTo(this.radians+this.x1,this.velocity+this.y);
-            // c.restore();
-            c.shadowColor = "rgba(255,0,154.0.5)";
-            c.strokeStyle="rgb(255,0,154)";
-            c.shadowBlur = 25;
-            
-            // c.font="40px Futura";
-            // c.strokeText("Java Lamp",this.x,this.y);
-            c.stroke();
-        };
-
-        this.update = function(){
-            pos.push(this.x);
-            pos.push(this.y);
-            this.x = x + (Math.cos(2*this.radians)*150);
-            this.y += this.dy; 
-            this.x1 = x + x1 + (Math.sin(this.radians)*150);
-            this.y1 += this.dy1;
-            this.radians += this.velocity;
-            if (this.x  > 520|| this.x  < 0) {
-                this.dx = -this.dx;
-            }   
-            if (this.y > 240|| this.y < 0) {
-                this.dy = -this.dy;
-            }
-            if (this.x1  > 520 || this.x1  < 0) {
-                this.dx1 = -this.dx1;
-            }   
-            if (this.y1 > 240 || this.y1 < 0) {
-                this.dy1 = -this.dy1;
-            }
-            this.draw();
-        };
-    }
-
-        let homeArray;
-        let implement = ()=>{
-            homeArray = [];
-            for(let i=0; i<3;i++){
-                let x =  10;
-                let y =  10;
-                let x1 = 5;
-                let y1 =  5;
-                let dx = 1;
-                let dy = 1;
-                let dx1 = 1/2;
-                let dy1 = 1/2 + Math.cos((x/10));
-                let pos = [];
-                let radians = Math.random()*Math.PI*2;
-                let velocity = 0.002;
-                homeArray.push(new HomeObj(x,y,x1,y1,dx,dy,dx1,dy1,pos,radians,velocity));
-            }   
-        };
-
-        function drawObj(){
-            window.requestAnimationFrame(drawObj);
-            c.translate(c.Width/2,c.Height/2);
-            c.clearRect(0,0,540,540);
-            c.fillRect(0,0,540,540);
-            c.translate(c.Width/2,c.Height/2);
-            c.fillStyle="rgba(0,0,0,0.05)";
-            // c.translate (-1,0);
-                for (let i=0;i<homeArray.length; i++){
-                    homeArray[i].update();
-                }
-            }
-       
-
-
-    implement();    
-    drawObj();
-    // c.scale(4/5,4/5);
-    c.translate(c.Width/2,c.Height/2);
-    
-
-    
-
- };
-
-
-
-
-
-
-
-
-
-
-
-        return {drawMovingObject,onload};    
+        return {drawMovingObject};    
 });
 
 
 
 
-//////////////////////////Static group///////////////////
-   
 
-// let drawLsystem = (data)=>{
-
-    //     let currentString = "X";
-    //     let nextString = "";
-
-    //     /////GENERATE STRING///////
-    //     let generate = ()=>{
-    //         for (let i = 0; i<currentString.length; i++){
-    //             let chAt = currentString.charAt(i);
-    //             if (chAt == "X"){
-    //                 nextString += "F[-X][X]F[-X]+FX";
-    //             } else if (chAt == "F"){
-    //                 nextString += "FF";
-    //             }
-    //         } 
-    //         currentString += nextString;
-    //     };
-        
-    //     ////////INTERPRET STRING RULES//////////
-    //     let interpret = ()=>{
-    //         for (let i =0; i<currentString.length; i++){
-    //             let decoder = currentString.charAt(i);
-                
-             
-                
-    //             if (decoder == "F"){ 
-    //                 // F means "draw forward
-                    
-           
-    //             } else if (decoder == "X"){
-    //                 // X does not correspond to any drawing action and is used to control the evolution of the curve. 
-                    
-    //                 c.rotate((5 * Math.PI)/ 180);
-    //                 c.closePath();
-        
-    //             } else if (decoder == "+"){
-    //                 // − means "turn left 25°"
-                    
-    //                 c.closePath();
-    //                 c.rotate(-(45 * Math.PI / 180));
-                    
-    //             } else if (decoder == "-"){
-    //                 // + means "turn right 25°"
-                   
-    //                 c.closePath();
-    //                 c.rotate(45 * Math.PI / 180);
-                    
-                    
-    //             } else if (decoder == "["){
-    //                 // The square bracket "[" corresponds to saving the current values for position and angle,
-                    
-                
-    //             } else if (decoder == "]");
-    //             // which are restored when the corresponding "]" is executed
-                    
-                    
-    //         }   
-    //     };
-        
-        
-    //     let initLsystem = ()=>{
-            
-    //         c.beginPath();
-    //         c.translate(1080/2,512/2);   
-    //         interpret();
-    //         c.strokeStyle = "rgb(255,0,200)";
-    //         c.stroke();
-    //     };
-        
-        
-    //     let magic = (data)=>{
-    //         for (let i=0; i<1;i++){
-    //             generate(); 
-    //             initLsystem();
-    //         }
-    //     };
-
-    //     magic();
-    // };
-  
     
         
 

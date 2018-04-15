@@ -2,20 +2,17 @@
 
 
 angular.module("PseudoSceneApp")
-.controller("SceneCtrl", function($scope, $routeParams, $location, $route, $window, AuthFactory, DataFactory, DataShareFactory){
+.controller("SceneCtrl", function($scope, $routeParams, $location, $route, $window, $timeout, AuthFactory, DataFactory, DataShareFactory){
     
  
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-
-
+    
 /////////////////SETTER FOR DATA SHARE FACTORY
             $scope.submitData = function(formData)  { 
                         DataShareFactory.setData(formData);
                      };   
-                     
-                     
-
+                    
 ///////////////////DATA FORM CRUD/////////////////////////////
             //send form data to fire base
             $scope.save = ()=>{ 
@@ -37,11 +34,10 @@ angular.module("PseudoSceneApp")
             
             // retrieve user form data
             $scope.loadParam = ()=>{
-                console.log("ok");
                 DataFactory.getParameters()
                 .then((params) => {
                     $scope.params = params; 
-                    $scope.initSavedParam();
+                   
                 })
                 .catch((error) => {
                     console.log("You messed up bruh", error);
@@ -50,7 +46,7 @@ angular.module("PseudoSceneApp")
 
             //helper function to scope recalled form data set to draw logic
             $scope.initSavedParam = (recalledFormData)=>{
-                $scope.formData = recalledFormData;
+                $scope.formData = recalledFormData;                
             };
 
             //delete parameter
@@ -65,9 +61,6 @@ angular.module("PseudoSceneApp")
             $scope.exitParamEdit = ()=>{
                 $route.reload("/scene");
             };
-
-          
-
         }
     });
 });

@@ -6,17 +6,22 @@ body {
     background-image: url("../images/galaxyA.png");
     font-family: Futura;
 }
-
 ///////////LANDING
-
+@keyframes javalamp {
+    0% {text-shadow: 5px 5px 10px rgba(208, 183, 241, 0);}
+    50% {text-shadow: 5px 5px 10px rgba(187, 183, 241, 0.719);}
+    100% {text-shadow: 5px 5px 10px rgba(187, 183, 241, 0);}
+}
 .welcome{
-    padding-top: 4%;
+    border-radius: 15px;
+    padding-top: 15%;
     text-align: center;
     font-size: 3em;
-    margin:0;
+    margin: 0;
+    animation-name: javalamp;
+    animation-duration: 8s;
+    color: rgb(187, 183, 241);
 };
-
-
 .login{
     text-align: center;
     display: flex;
@@ -29,7 +34,6 @@ body {
     display: flex;
     list-style: none;
 }
-
 .homeNav {
     display: flex;
     list-style: none;
@@ -45,7 +49,6 @@ body {
     margin: 0;
     justify-content: center;
 }
-
 .homeNav{
     border-radius: 15px;
     background-color: rgba(58, 87, 255, 0.445);
@@ -62,17 +65,11 @@ body {
 .gallery2{
     margin: none;
     border-radius: 15px;
-    
-    // background-color: rgba(187, 183, 241, 0.397);
-    // transition: background-color 3s;
-    // display: flex;
     height: 18em;
-    width: 45em;
+    width: 50em;
     overflow: scroll;
 }
-
 /////////////SCENE
-
 .nav{
     border-radius: 15px;
     background-color: rgba(58, 87, 255, 0.445);
@@ -80,13 +77,10 @@ body {
     list-style: none;
     display: flex;
 }
-
 .nav:hover {
 background-color: rgba(119, 140, 255, 0.445);
     transition: background-color 1s;
 }
-
-
 .nav li:hover {
     color: rgb(187, 183, 241);
     transition: color 1s;
@@ -95,20 +89,26 @@ background-color: rgba(119, 140, 255, 0.445);
 #canvas1{
     background-color: rgb(0, 0, 0); 
 }
-
+.instructions{
+    font-size: .95em;
+    margin: 0px;
+    padding: 0px;
+    
+   color: rgb(187, 183, 241);
+   text-align: center;
+   justify-content: center;
+   background-color: rgba(58, 87, 255, 0.65);
+}
 .topHalf{
     display: flex;
     flex: wrap;
     list-style: none;
-    // justify-content: center;
 }
-
 //////////////PAGE LAYOUT
 .dataSetsCont{
     list-style: none;
     display: flex;
 }
-
 .imageControls{
     border-radius: 15px;
     background-color: rgba(58, 87, 255, 0.445);
@@ -118,13 +118,10 @@ background-color: rgba(119, 140, 255, 0.445);
     text-align: center;
     list-style: none;    
 }
-
 .imageControls li:hover{
     color: rgb(187, 183, 241);
-    // background-color: rgba(58, 87, 255, 0.445);
     transition: color 1s;
 }
-
 .imageType{
     display: flex;
     list-style: none;
@@ -142,7 +139,6 @@ input[type=text]{
     outline: none;
     border: none;
 }
-
 input[type=text]:hover {
     background-color: rgba(119, 140, 255, 0.445);
     transition: background-color 1s;
@@ -151,7 +147,6 @@ input[type=text]:hover {
     border: 1em, solid, rgb(187, 183, 241);
     transition: border 2s;
 }
-
 .formInputs{
     justify-content: center;
     border-radius: 15px;
@@ -162,17 +157,14 @@ input[type=text]:hover {
     width: 45em;
     overflow: scroll; 
 }
-
 .formInputs:hover{
     background-color: rgba(58, 87, 255, 0.445);
     transition: background-color 2s;
 }
-
 .group1{
     text-align: center;
     justify-content: center;
     padding:1%;
-    // justify-content: center;
     border-radius: 15px;
     list-style: none;
     height: 6.5em;
@@ -187,17 +179,12 @@ input[type=text]:hover {
     background-color: rgba(119, 140, 255, 0.445);
     transition: background-color 1s;
 }
-
 .subgroup1{
     text-align: center;
     margin: 0px;
     padding: 0px;
     list-style-position: outside;
-    // justify-content: space-around;
     list-style: none;
-    
-    // height: 5em;
-    // overflow: scroll; 
 }
 .subgroup1 ul {
     text-align: center;
@@ -205,11 +192,7 @@ input[type=text]:hover {
     margin: 0px;
     padding: 0px;
     list-style: none;
-    
-    // height: 5em;
-    // overflow: scroll; 
 }
-
 .subgroup1 li:hover {
     color: rgb(187, 183, 241);
     transition: text-shadow 1s;
@@ -224,56 +207,50 @@ input[type=text]:hover {
     width: 15em;
     overflow: scroll;
 }
-
 .paramDiv:hover {
     border-radius: 15px;
     background-color: rgba(58, 87, 255, 0.445);
     transition: background-color 2s;
 }
-
 .paramCollection:hover {
     background-color: rgba(119, 140, 255, 0.445);
     transition: background-color 1s;
 }
-
 .paramCollection li:hover{
     color: rgb(187, 183, 241);
 }
-
+.init{
+    color: rgb(187, 183, 241);
+    background-color: rgba(119, 139, 255, 0.192);
+    text-align: center;
+}
 .parameterHeader{
     justify-content: space-around;
-    // justify-content: center;
     border-radius: 15px;
     display: flex;
-    // justify-content: space-between;
     list-style: none;
     text-align: center;
 }
-
 .parameterHeader:hover {
     background-color: rgba(119, 140, 255, 0.445);
     transition: background-color 1s;
 }
-
 .parameterHeader li:hover {
     color: rgb(187, 183, 241);
     transition: color 1s;
     text-shadow: 2px 2px 6px rgb(187, 183, 241);
     transition: text-shadow 3s;
 }
-
 .paramHeadLine{
     border-radius: 15px;
     text-align: center;
     background-color: rgba(119, 140, 255, 0.445);
    
 }
-
 .paramName{
     text-align: center;
     display: flex;
 }
-
 .paramName li:hover {
     text-align: center;
     color: rgb(187, 183, 241);
@@ -282,74 +259,57 @@ input[type=text]:hover {
     transition: text-shadow 3s;
 }
 /////////////GALLERY//////
-
 .backBtn{
     list-style: none;
     display: flex;
     justify-content: space-evenly;
     border-radius: 15px;
     background-color: rgba(187, 183, 241, 0.397);
-    
-
 }
-
 .backBtn:hover{
-    border-radius: 15px;
-    color: rgb(187, 183, 241);
+    border-radius: 15px;  
     transition: color 1s;
     background-color: rgba(58, 87, 255, 0.445);
     transition: background-color 3s;
-
 }
-
+.backBtn li:hover{
+    color: rgb(187, 183, 241);
+    transition: color 1s;
+}
 .gallery{
     margin-top: 2em;
     border-radius: 15px;
-    // background-color: rgba(187, 183, 241, 0.397);
-    // transition: background-color 3s;
     display: flex;
     height: 35em;
     width: 75em;
     overflow: scroll;
 }
-
 .gallery:hover{
     background-color: rgba(187, 183, 241, 0.397);
     transition: background-color 4s;
-    
-    // display: flex;
-    // height: 35em;
-    // width: 75em;
-    // overflow: scroll;
 }
-
 .imgTitle{
     font-style: italic;
     color: rgb(187, 183, 241);
 }
-
 .imgSet{
     list-style: none;
     margin: 0px;
     padding: 0px;
 }
-
 .imgForm {
     border-radius: 15px;
     color: rgba(0, 0, 0, 0);
     list-style: none;
     display: flex;
     justify-content: space-evenly;
-
 }
-
 .imgForm:hover {
     color: rgb(0, 0, 0);
     transition: color 2s;
     background-color: rgba(58, 87, 255, 0.445);
     transition: background-color 2s;
 }
-
 .imgForm li:hover {
     text-align: center;
     color: rgb(187, 183, 241);
@@ -357,10 +317,7 @@ input[type=text]:hover {
     text-shadow: 2px 2px 6px rgb(187, 183, 241);
     transition: text-shadow 3s;
 }
-
-
 /////////SLIDER
-
 .slider {
     -webkit-appearance: none;
     width: 100%;
@@ -370,14 +327,11 @@ input[type=text]:hover {
     opacity: 0.7;
     -webkit-transition: .2s;  
 }
-
 .slider:hover {
-    // background: rgba(187, 183, 241, 0);
     opacity: 1;
     background: rgb(187, 183, 241);
     transition: opacity .2s;  
 }
-
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -387,16 +341,13 @@ input[type=text]:hover {
     background: rgb(58, 87, 255);
     cursor: pointer;
 }
-
 .slider::-moz-range-thumb {
     width: .9em;
     height: .9em;
     background:  rgb(58, 87, 255);
     cursor: pointer;
 }
-
-.slider::-webkit-slider-thumb:hover {
-    
+.slider::-webkit-slider-thumb:hover { 
     width: 1.25em;
     transition: width 1s;
     height: 1.25em;
@@ -405,10 +356,22 @@ input[type=text]:hover {
     transition: background 1s;
     cursor: pointer;
 }
-
 .slider::-moz-range-thumb:hover {
     width: .9em;
     height: .9em;
     background:  rgba(58, 87, 255, 0.445);
     cursor: pointer;
+}
+
+//BreakPoint
+@media only screen and (max-width : 320px){
+    .instructions{
+        // : ce;
+    }
+
+    .formsSets{
+        max-width: 90%;
+        max-height: 40%;
+        overflow: scroll;
+    }
 }
