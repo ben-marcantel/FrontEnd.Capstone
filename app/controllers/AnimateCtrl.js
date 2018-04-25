@@ -6,7 +6,6 @@ angular.module("PseudoSceneApp")
         let window = $window;
         $window.requestAnimationFrame = $window.requestAnimationFrame || $window.mozRequestAnimationFrame || $window.webkitRequestAnimationFrame || $window.msRequestAnimationFrame;
         let  cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
-        let canvas = $document[0].getElementById("canvas1");
         let c = $document[0].getElementById("canvas1").getContext('2d');
         let image={};
         let dataFromGetter;
@@ -16,9 +15,9 @@ angular.module("PseudoSceneApp")
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
 
-/////////DOWNLOAD IMAGE/////////
+    /////////DOWNLOAD IMAGE/////////
     $scope.downloadImg = ()=>{
-        image.data = canvas.toDataURL('image/jpeg', 1.0);
+        image.data = c.toDataURL('image/png', 1.0);
         image.uid = firebase.auth().currentUser.uid;
         DataFactory.addImage(image);
     };
@@ -26,11 +25,7 @@ angular.module("PseudoSceneApp")
     $scope.sendImage = (image)=>{
        DataShareFactory.setImage(image);
     };
-
-    
-
-
-
+  
 ////////CLEAR IMAGE///////
     $scope.clearImage = ()=>{
         c.beginPath();
@@ -39,9 +34,9 @@ angular.module("PseudoSceneApp")
         c.clearRect(0, 0, 10000, 10000);
     };
 
-
 /////////DATA SHARE FACTORY GETTER/////////
     $scope.formExe = ()=>{
+        
        dataFromGetter = DataShareFactory.getData();
        return dataFromGetter;
     };
